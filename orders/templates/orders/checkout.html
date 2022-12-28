@@ -1,0 +1,31 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>Checkout</h1>
+    <form method="post" novalidate action="{% url 'orders:checkout' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+            {% for item in cart.items.all %}
+                <tr>
+                    <td>{{ item.product_variation.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product_variation.price }}</td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3">Total:</td>
+                <td>{{ total_cost }}</td>
+            </tr>
+        </table>
+        <button type="submit">Place order</button>
+    </form>
+{% endblock %}
