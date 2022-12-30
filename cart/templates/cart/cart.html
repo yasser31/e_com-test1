@@ -1,47 +1,96 @@
 {% extends 'products/base.html' %}
 
 {% block content %}
-    <h1>Cart</h1>
-    {% if cart.items.exists %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart.items.all %}
-                    <tr>
-                        <td>{{ item.product_variation.name }}</td>
-                        <td>
-                            <form>
-                                {% csrf_token %}
-                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
-                            </form>
-                        </td>
-                        <td>${{ item.product.price }}</td>
-                        <td>${{ item.total }}</td>
-                        <td>
-                            <form action="{% url 'cart:remove_from_cart' item.id %}" method="post">
-                                {% csrf_token %}
-                                <input type="submit" value="Remove">
-                            </form>
-                        </td>
-                    </tr>
-                {% endfor %}
-                <tr>
-                    <td colspan="3">Total:</td>
-                    <td>${{ cart.total }}</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-        <a href="{% url 'orders:checkout' %}">Checkout</a>
-    {% else %}
-        <p>Your cart is empty.</p>
-    {% endif %}
+<h1>Cart</h1>
+{% if cart.items.exists %}
+<table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart.items.all %}
+        <tr>
+            <td>{{ item.product_variation.name }}</td>
+            <td>
+                <form>
+                    {% csrf_token %}
+                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1"
+                        data-cart-item-id="{{ item.id }}" id='{{ item.id }}'>
+                </form>
+            </td>
+            <td>${{ item.product_variation.price }}</td>
+            <td id ="cart-item-{{item.id}}-total"> {{ item.total }}</td>
+            <td>
+                <form>
+                    {% csrf_token %}
+                    <input type="submit" value="Remove" name="remove">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="3">Total:</td>
+            <td id="cart-total">${{ cart.total }}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<a href="{% url 'orders:checkout' %}">Checkout</a>
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+{% block extra_script %}
+<script>
+    document.addEventListener('change', function (event) {
+        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+        if (event.target.matches('[name=quantity]')) {
+            var cartItemId = event.target.id;
+            var quantity = event.target.value;
+            fetch('/update_item/' + cartItemId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: JSON.stringify({
+                    quantity: quantity,
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector('#cart-item-' + cartItemId + '-total').textContent =
+                        data.new_item_total;
+                    document.querySelector('#cart-total').textContent =
+                        data.new_cart_total;
+                });
+        }
+    });
+    document.addEventListener('click', function(event){
+        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+        if (event.target.matches('[name=remove]')){
+            event.preventDefault();
+            var cartItemId = document.querySelector('cart-item-id').value;
+            console.log(cartItemId);
+            fetch('/remove_from_cart/' + cartItemId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector('#cart-total').textContent =
+                        data.new_cart_total;
+            });
+        }
+    })
+</script>
+{% endblock extra_script %}
 {% endblock %}

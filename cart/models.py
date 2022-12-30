@@ -17,9 +17,10 @@ class Cart(models.Model):
     def update_total_price(self):
         total_price = 0
         for item in self.items.all():
-            total_price += item.price
+            total_price += item.total
         self.total = total_price
         self.save()
+        print("price_updated")
     
     def clear(self):
         cart_items = CartItem.objects.filter(cart=self)
@@ -39,5 +40,6 @@ class CartItem(models.Model):
     
     def update_quantity(self, new_quantity):
         self.quantity = new_quantity
-        self.price = self.product.price * new_quantity
+        self.total = self.product_variation.price * new_quantity
         self.save()
+        print("quantity_updated")
