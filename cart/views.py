@@ -45,7 +45,6 @@ def add_to_cart(request, product_id):
 
 def remove_from_cart(request, cart_item_id):
     if request.method == "POST":
-        print("yes")
         cart_item = get_object_or_404(CartItem, pk=cart_item_id)
         cart = cart_item.cart
         new_cart_total = cart.total - cart_item.total

@@ -15,13 +15,13 @@
     </thead>
     <tbody>
         {% for item in cart.items.all %}
-        <tr>
+        <tr id="item-row-{{item.id}}">
             <td>{{ item.product_variation.name }}</td>
             <td>
                 <form>
                     {% csrf_token %}
                     <input type="number" name="quantity" value="{{ item.quantity }}" min="1"
-                        data-cart-item-id="{{ item.id }}" id='{{ item.id }}'>
+                         id='{{ item.id }}'>
                 </form>
             </td>
             <td>${{ item.product_variation.price }}</td>
@@ -29,7 +29,7 @@
             <td>
                 <form>
                     {% csrf_token %}
-                    <input type="submit" value="Remove" name="remove">
+                    <input type="submit" value="Remove" name="remove" data-cart-item-id="{{ item.id }}">
                 </form>
             </td>
         </tr>
@@ -71,26 +71,35 @@
                 });
         }
     });
+    
     document.addEventListener('click', function(event){
-        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-        if (event.target.matches('[name=remove]')){
-            event.preventDefault();
-            var cartItemId = document.querySelector('cart-item-id').value;
-            console.log(cartItemId);
-            fetch('/remove_from_cart/' + cartItemId, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken,
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.querySelector('#cart-total').textContent =
-                        data.new_cart_total;
-            });
-        }
-    })
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    if (event.target.matches('[name=remove]')){
+        event.preventDefault();
+        var cartItemId = event.target.getAttribute('data-cart-item-id');
+        const cartItemRow = document.getElementById(`item-row-${cartItemId}`);
+        fetch('/cart/remove/' + cartItemId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Something went wrong');
+        })
+        .then(data => {
+            document.querySelector('#cart-total').textContent =
+                    data.new_cart_total;
+            cartItemRow.parentNode.removeChild(cartItemRow);
+        })
+        
+    }
+});
+
 </script>
 {% endblock extra_script %}
 {% endblock %}
