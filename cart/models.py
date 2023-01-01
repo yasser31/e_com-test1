@@ -30,16 +30,16 @@ class Cart(models.Model):
 class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
-    product = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='products', null=True, blank=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='products', null=True, blank=True)
     product_variation = models.ForeignKey(ProductVariation, on_delete=models.CASCADE, null=True, blank=True)
     quantity = models.PositiveIntegerField()
     total = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     
-    def __str__(self):
-        return self.product_variation.name
-    
     def update_quantity(self, new_quantity):
         self.quantity = new_quantity
-        self.total = self.product_variation.price * new_quantity
+        if self.product_variation:
+            self.total = self.product_variation.price * new_quantity
+        elif self.product:
+            self.total = self.product.price * new_quantity
         self.save()
         print("quantity_updated")

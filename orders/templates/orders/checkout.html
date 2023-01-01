@@ -15,15 +15,23 @@
             </tr>
             {% for item in cart.items.all %}
                 <tr>
+                    {% if item.product_variation %}
                     <td>{{ item.product_variation.name }}</td>
+                    {% elif item.product %}
+                    <td>{{ item.product.name }}</td>
+                    {% endif %}
                     <td>{{ item.quantity }}</td>
+                    {% if item.product_variation %}
                     <td>{{ item.product_variation.price }}</td>
-                    <td></td>
+                    {% elif item.product %}
+                    <td>{{ item.product.price }}</td>
+                    {% endif %}
+                    <td>{{ item.total }}</td>
                 </tr>
             {% endfor %}
             <tr>
                 <td colspan="3">Total:</td>
-                <td>{{ total_cost }}</td>
+                <td>{{ cart.total }}</td>
             </tr>
         </table>
         <button type="submit">Place order</button>

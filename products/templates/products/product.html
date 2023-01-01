@@ -13,11 +13,13 @@
       <form action="{% url 'cart:add_to_cart' product.id %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="variation" id="variation">
-          <select name="product_variations" id="{{ variation.id }}" multiple required>
+          <select name="product_variations" multiple>
             {% for variation in variations %}
               <option value="{{ variation.id }}">{{ variation.name }}</option>
             {% endfor %}
           </select>
+        <input type="radio" name="default" value="{{ product.id }}" id="default">
+        <label for="default">Choose default ?</label>
         <button id="add-to-cart-button" type="submit">Add to Cart</button>
       </form>
     </div>

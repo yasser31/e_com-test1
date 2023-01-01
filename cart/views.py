@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import CartItem, Cart
-from products.models import ProductVariation
+from products.models import ProductVariation, Product
 from django.http import JsonResponse
 import json
 
@@ -13,7 +13,8 @@ def cart(request):
 
 def add_to_cart(request, product_id):
     if request.method == "POST":
-        cart_total = 0
+        product_variation_ids = request.POST.getlist('product_variations')
+        default = request.POST.getlist('default')
         # Get the current user's cart
         try:
             cart = Cart.objects.get(user=request.user)
@@ -21,26 +22,36 @@ def add_to_cart(request, product_id):
             cart = Cart.objects.create(user=request.user)
 
         # Get the product variation IDs from the form submission
-        product_variation_ids = request.POST.getlist('product_variations')
-
-        # Create a CartItem for each product variation
-        for variation_id in product_variation_ids:
-            variation = ProductVariation.objects.get(pk=variation_id)
+        if product_variation_ids:
+            # Create a CartItem for each product variation
+            for variation_id in product_variation_ids:
+                variation = ProductVariation.objects.get(pk=variation_id)
+                try:
+                    item = CartItem.objects.get(
+                    product_variation=variation, user=request.user)
+                except CartItem.DoesNotExist:
+                    item = CartItem.objects.create(
+                        cart=cart, product_variation=variation, quantity=1, user=request.user)
+                    item.total = item.product_variation.price * item.quantity
+                    cart.total += item.total
+                    cart.save()
+                    item.save()
+        if default:
+            product = Product.objects.get(pk=default[0])
             try:
                 item = CartItem.objects.get(
-                    product_variation=variation, user=request.user)
+                product=product, user=request.user)
             except CartItem.DoesNotExist:
                 item = CartItem.objects.create(
-                    cart=cart, product_variation=variation, quantity=1, user=request.user)
-                item.total = item.product_variation.price * item.quantity
-                cart_total += item.total
-                cart.total = cart_total
+                    cart=cart, product=product, quantity=1, user=request.user)
+                item.total = item.product.price * item.quantity
+                cart.total += item.total
                 cart.save()
                 item.save()
-                
+
         # Redirect the user back to the product page
-        return redirect('view_product', product_id=product_id)
-    return redirect('view_product', product_id=product_id)
+        return redirect('products:view_product', product_id=product_id)
+    return redirect('products:view_product', product_id=product_id)
 
 
 def remove_from_cart(request, cart_item_id):

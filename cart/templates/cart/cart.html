@@ -15,6 +15,7 @@
     </thead>
     <tbody>
         {% for item in cart.items.all %}
+        {% if item.product_variation %}
         <tr id="item-row-{{item.id}}">
             <td>{{ item.product_variation.name }}</td>
             <td>
@@ -33,6 +34,26 @@
                 </form>
             </td>
         </tr>
+        {% elif item.product %}
+        <tr id="item-row-{{item.id}}">
+            <td>{{ item.product.name }}</td>
+            <td>
+                <form>
+                    {% csrf_token %}
+                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1"
+                         id='{{ item.id }}'>
+                </form>
+            </td>
+            <td>${{ item.product.price }}</td>
+            <td id ="cart-item-{{item.id}}-total"> {{ item.total }}</td>
+            <td>
+                <form>
+                    {% csrf_token %}
+                    <input type="submit" value="Remove" name="remove" data-cart-item-id="{{ item.id }}">
+                </form>
+            </td>
+        </tr>
+        {% endif %}
         {% endfor %}
         <tr>
             <td colspan="3">Total:</td>
