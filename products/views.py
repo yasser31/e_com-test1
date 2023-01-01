@@ -1,5 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, VariationOption, VariationValue, ProductVariation
+from .forms import ProductForm, ProductVariationForm
+from django.db import transaction
+
 
 
 def home(request):
@@ -23,3 +26,29 @@ def view_product(request, product_id):
     }    
     return render(request, 'products/product.html', context)
 
+
+@transaction.atomic
+def create_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            product = form.save()
+            return redirect('products:view_product', product.pk)
+    else:
+        form = ProductForm()
+    return render(request, 'products/create_product.html', {'form': form})
+
+
+
+@transaction.atomic
+def create_product_variation(request):
+    if request.method == 'POST':
+        form = ProductVariationForm(request.POST)
+        if form.is_valid():
+            # Create the product variation
+            product_variation = form.save()
+            # Redirect to a success page
+            return redirect('products:view_product')
+    else:
+        form = ProductVariationForm()
+    return render(request, 'products/create_variation.html', {'form': form})

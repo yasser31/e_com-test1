@@ -1,0 +1,10 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+    <h1>Create Product Variation</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create Product Variation">
+    </form>
+{% endblock %}
