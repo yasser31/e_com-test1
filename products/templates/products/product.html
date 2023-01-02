@@ -5,7 +5,14 @@
 <link rel="stylesheet" type="text/css" href="{% static 'products/css/product.css' %}">
 {% block content %}
   <div class="product">
-    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+    {% for image in product.product_images.all %}
+    <img src="{{ image.thumbnail.url }}" alt="{{ product.name }}">
+    {% endfor %}
+    {% for variation in variations %}
+    {% for image in variation.variant_images.all %}
+    <img src="{{ image.thumbnail.url }}" alt="{{ variation.name }}">
+    {% endfor %}
+    {% endfor %}
     <div class="details">
       <h2>{{ product.name }}</h2>
       <p>{{ product.description }}</p>

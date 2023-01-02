@@ -6,8 +6,8 @@ from django.db import transaction
 
 
 def home(request):
-    featured_products = Product.objects.filter(featured=True)[:6]
-    context = {'featured_products': featured_products}
+    products = Product.objects.all()
+    context = {'products': products}
     return render(request, 'products/home.html', context)
 
 

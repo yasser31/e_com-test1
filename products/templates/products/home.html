@@ -1,0 +1,26 @@
+{% extends './base.html' %}
+{% load static %}
+{% block extra_style %}
+<link rel="stylesheet" href="{% static 'products/css/home.css' %}">
+{% endblock %}
+{% block content %}
+<!-- home.html -->
+
+<!-- Add a container element to hold the product cards -->
+<div class="product-cards-container">
+    {% for product in products %}
+    <!-- Create a product card for each product -->
+    <div class="product-card">
+        <!-- Add an image for the product -->
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <!-- Add a heading for the product name -->
+        <h3>{{ product.name }}</h3>
+        <!-- Add a paragraph for the product description -->
+        <p>{{ product.description }}</p>
+        <!-- Add a button to view the product details page -->
+        <a href="{% url 'products:view_product' product.id %}" class="view-details-button">View Details</a>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
