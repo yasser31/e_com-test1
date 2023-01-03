@@ -56,6 +56,7 @@ class Image(models.Model):
         upload_to='img', null=True, blank=True)
     thumbnail = models.ImageField(
         upload_to='thumbnails', null=True, blank=True)
+    default = models.BooleanField(default=False)
 
     def get_image(self):
         if self.image:
