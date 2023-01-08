@@ -21,7 +21,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('products:home')
         else:
             # Return an 'invalid login' error message.
             return render(request, 'accounts/login.html', {'error': 'Invalid login'})
@@ -30,7 +30,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('home')
+    return redirect('products:home')
 
 @transaction.atomic
 def register_view(request):
@@ -49,6 +49,7 @@ def register_view(request):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token':account_activation_token.make_token(user),
             })
+            print(message)
             email = user.email
             send_mail(
                 subject=subject,

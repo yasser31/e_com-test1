@@ -7,12 +7,21 @@
     {% endif %}
     <form method="post" action="{% url 'accounts:login' %}">
         {% csrf_token %}
+    <div class="form-group">
         <label for="username">Username:</label>
-        <input type="text" name="username" required>
+        <input class="username-bt" type="text" name="username" required>
+    </div>
         <br>
+    <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" name="password" required>
+        <input class="password-bt" type="password" name="password" required>
+    </div>
         <br>
-        <input type="submit" value="Log in">
+    <div class="send_btn">
+        <input class="main-bt" type="submit" value="Log in">
+    </div>
+    <div class="send_btn">
+        <a href="{% url 'accounts:register' %}" class="main-bt"> Register</a>
+    </div>
     </form>
 {% endblock %}

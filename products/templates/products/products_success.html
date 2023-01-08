@@ -1,0 +1,5 @@
+{% extends './base.html' %}
+{% block content %}
+<p> Product created successfuly if this product has variations for example please create them </p>
+<a href="{% url 'products:create_variation' %}">Create Variation</a>
+{% endblock %}

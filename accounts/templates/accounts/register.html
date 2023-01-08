@@ -1,7 +1,7 @@
 {% extends 'products/base.html' %}
-{% block content %}
+{% block register %}
     <h1>Registration</h1>
-    <form method="post">
+    <form method="post" action="{% url 'accounts:register' %}">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Register">
