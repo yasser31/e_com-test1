@@ -3,6 +3,10 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
+    {{ image_form.management_form }}
+    {% for img_form in image_form %}
+    {{ img_form.as_p }}
+    {% endfor %}
     <input type="submit" value="Create">
 </form>
 {% endblock %}

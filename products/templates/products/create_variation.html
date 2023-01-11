@@ -2,9 +2,13 @@
 
 {% block content %}
     <h1>Create Product Variation</h1>
-    <form method="post">
+    <form method="post" action="{% url 'products:create_variation' %}">
         {% csrf_token %}
         {{ form.as_p }}
+        {{ image_form.management_form }}
+        {% for img_form in image_form %}
+        {{ img_form.as_p }}
+        {% endfor %}
         <input type="submit" value="Create Product Variation">
     </form>
 {% endblock %}

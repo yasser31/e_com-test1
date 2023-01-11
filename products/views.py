@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, VariationOption, VariationValue, ProductVariation
-from .forms import ProductForm, ProductVariationFormSet
+from .forms import ImageFormSet, ProductVariationForm, ProductForm, ImageForm
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 
@@ -23,39 +23,64 @@ def view_product(request, product_id):
     context = {
         'product': product,
         'variations': variations
-    }    
+    }
     return render(request, 'products/product.html', context)
-
 
 
 @login_required
 @transaction.atomic
 def create_product(request):
     if request.method == 'POST':
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            product = form.save()
+        form = ProductForm(request.POST, prefix="product")
+        image_formset = ImageFormSet(
+            request.POST, request.FILES, prefix="images")
+        if form.is_valid() and image_formset.is_valid():
+            product = form.save(commit=False)
+            images = image_formset.save(commit=False)
+            try:
+                product = Product.objects.get(
+                    name=product.name, user=request.user)
+            except Product.DoesNotExist:
+                product.user = request.user
+                product.save()
+                for image in images:
+                    image.product = product
+                    image.save()
+
             return redirect('products:product_success')
     else:
         form = ProductForm()
-    return render(request, 'products/create_product.html', {'form': form})
+        image_formset = ImageFormSet(prefix="images")
+    return render(request, 'products/create_product.html', {'form': form, 'image_form': image_formset})
 
 
 @login_required
 @transaction.atomic
 def create_product_variation(request):
     if request.method == 'POST':
-        formset = ProductVariationFormSet(request.POST)
-        if formset.is_valid():
-            for form in formset:
+        form = ProductVariationForm(request.POST)
+        image_formset = ImageFormSet(
+            request.POST, request.FILES, prefix="images")
+        if form.is_valid() and image_formset.is_valid():
             # Create the product variation
-                product_variation = form.save()
+            product_variation = form.save(commit=False)
+            images = image_formset.save(commit=False)
+            try:
+                product_variation = ProductVariation.objects.get(
+                    name=product_variation.name, user=request.user)
+            except ProductVariation.DoesNotExist:
+                product_variation.user = request.user
+                product_variation.save()
+                for image in images:
+                    image.variant = product_variation
+                    image.save()
             # Redirect to a success page
-            return redirect('products:view_product', product_variation.product.pk)
+            return redirect('products:create_variation')
     else:
-        form = ProductVariationFormSet()
-    return render(request, 'products/create_variation.html', {'form': form})
+        form = ProductVariationForm()
+        image_formset = ImageFormSet(prefix="images")
+    return render(request, 'products/create_variation.html', {'form': form, "image_form": image_formset})
 
 
 def product_success(request):
-    return render(request, "products/product_success.html")
+    return render(request, "products/products_success.html")

@@ -115,7 +115,8 @@
         .then(data => {
             document.querySelector('#cart-total').textContent =
                     data.new_cart_total;
-            cartItemRow.parentNode.removeChild(cartItemRow);
+            var parentElement = cartItemRow.parentNode.removeChild(cartItemRow);
+            window.location.reload()
         })
         
     }

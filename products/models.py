@@ -2,6 +2,7 @@ from django.db import models
 from io import BytesIO
 from PIL import Image as Img
 from django.core.files import File
+from django.contrib.auth.models import User
 
 
 class VariationOption(models.Model):
@@ -24,6 +25,8 @@ class VariationValue(models.Model):
 
 
 class Product(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name="user_products", null=True, blank=True)
     name = models.CharField(max_length=100)
     description = models.TextField()
     variations = models.ManyToManyField(VariationOption)
@@ -35,7 +38,8 @@ class Product(models.Model):
 
 
 class ProductVariation(models.Model):
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name="user_variants", null=True, blank=True)
     name = models.CharField(max_length=100)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     option = models.ManyToManyField(VariationOption, blank=True)
