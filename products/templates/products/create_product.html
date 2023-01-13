@@ -1,5 +1,6 @@
 {% extends 'products/base.html' %}
 {% block content %}
+<div id="create_form">
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
@@ -8,5 +9,6 @@
     {{ img_form.as_p }}
     {% endfor %}
     <input type="submit" value="Create">
+</div>
 </form>
 {% endblock %}

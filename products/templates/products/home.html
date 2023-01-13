@@ -4,83 +4,13 @@
 <!-- home.html -->
 <!-- header section end -->
 <!-- new collection section start -->
-<div class="layout_padding collection_section">
-    <div class="container">
-        <h1 class="new_text"><strong>New Collection</strong></h1>
-        <p class="consectetur_text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna
-            aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-        <div class="collection_section_2">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="about-img">
-                        <button class="new_bt">New</button>
-                        <div class="shoes-img"><img src="{% static 'products/img/shoes-img1.png' %}"></div>
-                        <p class="sport_text">Men Sports</p>
-                        <div class="dolar_text">$<strong style="color: #f12a47;">90</strong> </div>
-                        <div class="star_icon">
-                            <ul>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <button class="seemore_bt">See More</button>
-                </div>
-                <div class="col-md-6">
-                    <div class="about-img2">
-                        <div class="shoes-img2"><img src="{% static 'products/img/shoes-img2.png' %}"></div>
-                        <p class="sport_text">Men Sports</p>
-                        <div class="dolar_text">$<strong style="color: #f12a47;">90</strong> </div>
-                        <div class="star_icon">
-                            <ul>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="collection_section">
-    <div class="container">
-        <h1 class="new_text"><strong>Racing Boots</strong></h1>
-        <p class="consectetur_text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna
-            aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-    </div>
-</div>
-<div class="collectipn_section_3 layuot_padding">
-    <div class="container">
-        <div class="racing_shoes">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="shoes-img3"><img src="{% static 'products/img/shoes-img3.png' %}"></div>
-                </div>
-                <div class="col-md-4">
-                    <div class="sale_text"><strong>Sale <br><span style="color: #0a0506;">JOGING</span>
-                            <br>SHOES</strong></div>
-                    <div class="number_text"><strong>$ <span style="color: #0a0506">100</span></strong></div>
-                    <button class="seemore">See More</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="collection_section layout_padding">
     <div class="container">
-        <h1 class="new_text"><strong>New Arrivals Products</strong></h1>
-        <p class="consectetur_text">consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna
-            aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+        <h1 class="new_text"><strong>Améliorez votre expérience d'achat</strong></h1>
+        <p class="consectetur_text">Profitez de la commodité et de la facilité des achats en ligne avec notre site web
+            convivial. <br>Faites vos achats maintenant et constatez la différence par
+            vous-même.</p>
     </div>
 </div>
 <!-- new collection section end -->
@@ -95,9 +25,10 @@
                     <div class="shoes_icon">
                         {% for image in product.product_images.all %}
                         {% if image.default %}
-                        <a href="{% url 'products:view_product' product.id %}"><img src="{{ image.image.url }}"></div></a>
-                        {% endif %}
-                        {% endfor %}
+                        <a href="{% url 'products:view_product' product.id %}"><img src="{{ image.image.url }}">
+                    </div></a>
+                    {% endif %}
+                    {% endfor %}
                     <div class="star_text">
                         <div class="left_part">
                             <ul>
@@ -108,18 +39,15 @@
                                 <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
                             </ul>
                         </div>
+                        <p class="best_text">Conatct: {{ product.contact }}</p>
                         <div class="right_part">
-                            <div class="shoes_price">$ <span style="color: #ff4e5b;">{{ product.price }}</span></div>
+                            <div class="shoes_price"><span style="color: #ff4e5b;">15000DA</span></div>
                         </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-    </div>
-    
-    <div class="buy_now_bt">
-        <button class="buy_text">Buy Now</button>
     </div>
 </div>
 </div>

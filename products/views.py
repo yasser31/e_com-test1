@@ -26,8 +26,6 @@ def view_product(request, product_id):
     }
     return render(request, 'products/product.html', context)
 
-
-@login_required
 @transaction.atomic
 def create_product(request):
     if request.method == 'POST':
@@ -37,6 +35,7 @@ def create_product(request):
         if form.is_valid() and image_formset.is_valid():
             product = form.save(commit=False)
             images = image_formset.save(commit=False)
+            images[0].default = True
             try:
                 product = Product.objects.get(
                     name=product.name, user=request.user)

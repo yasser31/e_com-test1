@@ -21,7 +21,8 @@
         <input class="main-bt" type="submit" value="Log in">
     </div>
     <div class="send_btn">
-        <a href="{% url 'accounts:register' %}" class="main-bt"> Register</a>
+        <a href="{% url 'accounts:register' %}">Register</a>
     </div>
+    <a href="{% url 'accounts:reset_password' %}">Forgot Password ?</a>
     </form>
 {% endblock %}

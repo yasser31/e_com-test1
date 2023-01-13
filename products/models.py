@@ -32,7 +32,7 @@ class Product(models.Model):
     variations = models.ManyToManyField(VariationOption)
     price = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True, default=0)
-
+    contact = models.IntegerField(default=0)
     def __str__(self):
         return self.name
 
@@ -78,7 +78,7 @@ class Image(models.Model):
             else:
                 return ''
 
-    def make_thumbnail(self, image, size=(300, 200)):
+    def make_thumbnail(self, image, size=(225, 225)):
         img = Img.open(image)
         img.convert('RGB')
         img.thumbnail(size)
