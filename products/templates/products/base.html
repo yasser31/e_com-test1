@@ -54,6 +54,34 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
+                <a class="nav-item nav-link dropdown-toggle">Catégories</a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-item">
+                    <a href="#">Vêtements</a>
+                    <ul class="child-menu hide">
+                      <li class="child-item"><a href="#">Chaussures</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown-item">
+                    <a href="#">Eléctronique</a>
+                    <ul class="child-menu">
+                      <li class="child-item"><a href="#">Téléphones</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown-item">
+                    <a href="#">Accessoires</a>
+                    <ul class="child-menu">
+                      <li class="child-item"><a href="#">Casques Audio</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown-item">
+                    <a href="#">Automobiles</a>
+                    <ul class="child-menu">
+                      <li class="child-item"><a href="#">Voitures</a></li>
+                    </ul>
+                  </li>
+                </ul>
+
                 <a class="nav-item nav-link" href="{% url 'products:home' %}">Home</a>
                 {% if user.is_authenticated %}
                 <a class="nav-item nav-link" href="{% url 'accounts:logout' %}">Logout</a>
@@ -63,14 +91,15 @@
                 {% endif %}
                 <a class="nav-item nav-link" href="{% url 'products:create_product' %}">Add product</a>
                 <a class="nav-item nav-link last" href="#"><img src="{% static 'products/img/search_icon.png' %}"></a>
-                <a class="nav-item nav-link last" href="#"><img
-                    src="{% static 'products/img/shop_icon.png' %}"></a>
+                <a class="nav-item nav-link last" href="#"><img src="{% static 'products/img/shop_icon.png' %}"></a>
               </div>
+
             </div>
-          </nav>
         </div>
+        </nav>
       </div>
     </div>
+  </div>
   </div>
   <div class="layout_padding">
     <div class="container">
@@ -203,6 +232,17 @@
         });
       });
     })
+  </script>
+  <script>
+    document.querySelector('.dropdown-toggle').addEventListener('click', function () {
+      document.querySelector('.dropdown-menu').classList.toggle('show');
+    });
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+      item.addEventListener('click', function () {
+        this.querySelector('.child-menu').classList.toggle('hide');
+      });
+    });
+
   </script>
   {% block extra_script %}
   {% endblock %}

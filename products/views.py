@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, VariationOption, VariationValue, ProductVariation
+from .models import Product, VariationOption, VariationValue, ProductVariation, Category
 from .forms import ImageFormSet, ProductVariationForm, ProductForm, ImageForm
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
@@ -7,9 +7,16 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
     products = Product.objects.all()
-    context = {'products': products}
+    categories = Category.objects.all()
+    context = {'products': products, 'categories': categories}
     return render(request, 'products/home.html', context)
 
+def categories(request):
+    categories = Category.objects.all()
+    context = {
+        'categories': categories
+    }
+    return render(request, 'products/base.html', context)
 
 def product_list(request):
     products = Product.objects.all()
