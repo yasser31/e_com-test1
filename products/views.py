@@ -3,6 +3,7 @@ from .models import Product, VariationOption, VariationValue, ProductVariation, 
 from .forms import ImageFormSet, ProductVariationForm, ProductForm, ImageForm
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 def home(request):
@@ -11,12 +12,15 @@ def home(request):
     context = {'products': products, 'categories': categories}
     return render(request, 'products/home.html', context)
 
-def categories(request):
-    categories = Category.objects.all()
+
+def categories(request, category):
+    category_products = Product.objects.filter(
+        category__name=category).order_by('-created_date')
     context = {
-        'categories': categories
+        'products': category_products
     }
-    return render(request, 'products/base.html', context)
+    return render(request, 'products/category.html', context)
+
 
 def product_list(request):
     products = Product.objects.all()
@@ -32,6 +36,7 @@ def view_product(request, product_id):
         'variations': variations
     }
     return render(request, 'products/product.html', context)
+
 
 @transaction.atomic
 def create_product(request):
@@ -52,8 +57,9 @@ def create_product(request):
                 for image in images:
                     image.product = product
                     image.save()
-
-            return redirect('products:product_success')
+            messages.success(
+                request, "Votre produit a été crée avec succès veuillez en ajouter un autre")
+            return redirect('products:create_product')
     else:
         form = ProductForm()
         image_formset = ImageFormSet(prefix="images")
@@ -88,5 +94,8 @@ def create_product_variation(request):
     return render(request, 'products/create_variation.html', {'form': form, "image_form": image_formset})
 
 
-def product_success(request):
-    return render(request, "products/products_success.html")
+def error_404(request, exception):
+    return render(request,'products/404.html', status=404)
+
+def error_500(request):
+    return render(request,'products/500.html', status=500)

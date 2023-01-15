@@ -12,6 +12,7 @@ from e__com.settings import EMAIL_HOST_USER
 from django.db import transaction
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 
 def login_view(request):
@@ -21,6 +22,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, "Vous êtes connecté")
             return redirect('products:home')
         else:
             # Return an 'invalid login' error message.
@@ -28,9 +30,12 @@ def login_view(request):
     else:
         return render(request, 'accounts/login.html')
 
+
 def logout_view(request):
     logout(request)
+    messages.warning(request, "Vous êtes déconnecté")
     return redirect('products:home')
+
 
 @transaction.atomic
 def register_view(request):
@@ -47,7 +52,7 @@ def register_view(request):
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token':account_activation_token.make_token(user),
+                'token': account_activation_token.make_token(user),
             })
             print(message)
             email = user.email
@@ -57,6 +62,8 @@ def register_view(request):
                 from_email=EMAIL_HOST_USER,
                 recipient_list=[email]
             )
+            messages.success(
+                request, 'Votre compte a été crée avec succès veuillez activer votre compte en cliquant sur le lien envoyé à votre boîte mail.')
             login(request, user)
             return redirect('products:home')
     else:
@@ -65,19 +72,27 @@ def register_view(request):
 
 
 def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.confirmed = True
+        user.save()
+        login(request, user)
         try:
-            uid = force_str(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=uid)
-        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-            user = None
-        if user is not None and account_activation_token.check_token(user, token):
-            user.confirmed = True
-            user.save()
-            login(request, user)
-            try:
-                Cart.objects.get(user=user)
-            except Cart.DoesNotExist:
-                Cart.objects.create(user=user)
-            return redirect('/')
-        else:
-            return HttpResponse('Activation link is invalid!')
+            Cart.objects.get(user=user)
+        except Cart.DoesNotExist:
+            Cart.objects.create(user=user)
+        messages.success(request, "Votre compte a été activé avec succès")
+        return redirect('/')
+    else:
+        return HttpResponse('Activation link is invalid!')
+
+
+def error_404(request, exception):
+    return render(request,'products/404.html', status=404)
+
+def error_500(request):
+    return render(request,'products/500.html', status=500)

@@ -57,27 +57,27 @@
                 <a class="nav-item nav-link dropdown-toggle">Catégories</a>
                 <ul class="dropdown-menu">
                   <li class="dropdown-item">
-                    <a href="#">Vêtements</a>
+                    <a href="{% url 'products:categories' 'Vêtements' %}">Vêtements</a>
                     <ul class="child-menu hide">
-                      <li class="child-item"><a href="#">Chaussures</a></li>
+                      <li class="child-item"><a href="{% url 'products:categories' 'Chaussures' %}">Chaussures</a></li>
                     </ul>
                   </li>
                   <li class="dropdown-item">
                     <a href="#">Eléctronique</a>
                     <ul class="child-menu">
-                      <li class="child-item"><a href="#">Téléphones</a></li>
+                      <li class="child-item"><a href="{% url 'products:categories' 'Téléphones' %}">Téléphones</a></li>
                     </ul>
                   </li>
                   <li class="dropdown-item">
                     <a href="#">Accessoires</a>
                     <ul class="child-menu">
-                      <li class="child-item"><a href="#">Casques Audio</a></li>
+                      <li class="child-item"><a href="{% url 'products:categories' 'Casques Audio' %}">Casques Audio</a></li>
                     </ul>
                   </li>
                   <li class="dropdown-item">
-                    <a href="#">Automobiles</a>
+                    <a href="{% url 'products:categories' 'Automobiles' %}">Automobiles</a>
                     <ul class="child-menu">
-                      <li class="child-item"><a href="#">Voitures</a></li>
+                      <li class="child-item"><a href="{% url 'products:categories' 'Voitures' %}">Voitures</a></li>
                     </ul>
                   </li>
                 </ul>

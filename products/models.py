@@ -3,6 +3,8 @@ from io import BytesIO
 from PIL import Image as Img
 from django.core.files import File
 from django.contrib.auth.models import User
+from django.utils import timezone
+
 
 
 class VariationOption(models.Model):
@@ -44,7 +46,9 @@ class Product(models.Model):
     price = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True, default=0)
     contact = models.IntegerField(default=0)
+    created_date = models.DateTimeField('date created', default=timezone.now, null=True, blank=True)
 
+    
     def __str__(self):
         return self.name
 

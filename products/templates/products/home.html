@@ -6,6 +6,9 @@
 <!-- new collection section start -->
 
 <div class="collection_section layout_padding">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
     <div class="container">
         <h1 class="new_text"><strong>Améliorez votre expérience d'achat</strong></h1>
         <p class="consectetur_text">Profitez de la commodité et de la facilité des achats en ligne avec notre site web
