@@ -45,7 +45,7 @@ class Product(models.Model):
     variations = models.ManyToManyField(VariationOption)
     price = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True, default=0)
-    contact = models.IntegerField(default=0)
+    contact = models.CharField(default="Non disponible", max_length=100)
     created_date = models.DateTimeField('date created', default=timezone.now, null=True, blank=True)
 
     

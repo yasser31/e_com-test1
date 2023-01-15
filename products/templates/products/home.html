@@ -22,37 +22,35 @@
     <div class="container">
         <div class="row">
             {% for product in products %}
-            <div class="col-sm-4">
-                <div class="best_shoes">
-                    <p class="best_text">{{ product.name }}</p>
-                    <div class="shoes_icon">
+            <div class="col-md-3">
+                <div class="card-sl">
+                    <div class="card-image">
                         {% for image in product.product_images.all %}
                         {% if image.default %}
-                        <a href="{% url 'products:view_product' product.id %}"><img src="{{ image.image.url }}">
-                    </div></a>
-                    {% endif %}
-                    {% endfor %}
-                    <div class="star_text">
-                        <div class="left_part">
-                            <ul>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                                <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-                            </ul>
-                        </div>
-                        <p class="best_text">Conatct: {{ product.contact }}</p>
-                        <div class="right_part">
-                            <div class="shoes_price"><span style="color: #ff4e5b;">15000DA</span></div>
-                        </div>
+                        <a href="{% url 'products:view_product' product.id %}"><img src="{{ image.image.url }}" id="card-img"></a>
+                        {% endif %}
+                        {% endfor %}
                     </div>
+
+                    <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
+                    <div class="card-heading">
+                        {{ product.name }}
+                    </div>
+                    <div class="card-text">
+                        {{ product.description }}
+                    </div>
+                    <div class="card-text">
+                        {{ product.contact }}
+                    </div>
+                    <div class="card-text">
+                        {{ product.price }} DA
+                    </div>
+                    <a href="{% url 'products:view_product' product.id %}" class="card-button">Détails</a>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
-</div>
 </div>
 <!-- New Arrivals section end -->
 <!-- contact section start -->

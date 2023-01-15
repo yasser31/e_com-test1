@@ -89,10 +89,3 @@ def activate(request, uidb64, token):
         return redirect('/')
     else:
         return HttpResponse('Activation link is invalid!')
-
-
-def error_404(request, exception):
-    return render(request,'products/404.html', status=404)
-
-def error_500(request):
-    return render(request,'products/500.html', status=500)

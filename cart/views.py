@@ -4,12 +4,13 @@ from products.models import ProductVariation, Product
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 import json
-
+from django.contrib import messages
 
 def cart(request):
     items = CartItem.objects.filter(user=request.user)
     cart = Cart.objects.get(user=request.user)
     context = {'items': items, 'cart': cart}
+    messages.warning(request, "Votre panier est vide")
     return render(request, 'cart/cart.html', context)
 
 
@@ -81,10 +82,3 @@ def update_cart_item(request, item_id):
             'new_cart_total': cart.total,
         }
         return JsonResponse(data)
-
-
-def error_404(request, exception):
-    return render(request,'products/404.html', status=404)
-
-def error_500(request):
-    return render(request,'products/500.html', status=500)

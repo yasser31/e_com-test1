@@ -64,7 +64,9 @@
 </table>
 <a href="{% url 'orders:checkout' %}">Checkout</a>
 {% else %}
-<p>Your cart is empty.</p>
+{% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
 {% endif %}
 {% block extra_script %}
 <script>

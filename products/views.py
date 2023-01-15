@@ -94,8 +94,11 @@ def create_product_variation(request):
     return render(request, 'products/create_variation.html', {'form': form, "image_form": image_formset})
 
 
-def error_404(request, exception):
-    return render(request,'products/404.html', status=404)
-
-def error_500(request):
-    return render(request,'products/500.html', status=500)
+def user_products(request):
+    products = Product.objects.filter(user=request.user).order_by("-created_date")
+    if not products:
+        messages.warning(request,"Vous n'avez aucun produit vous pouvez en ajouter en haut à droite")
+    context = {
+        "products": products
+    }
+    return render(request, "products/user_products.html", context)

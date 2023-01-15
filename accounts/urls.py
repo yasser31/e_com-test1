@@ -1,6 +1,5 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path, reverse_lazy
-from django.conf.urls import handler404, handler500
 from . import views
 
 app_name = "accounts"
@@ -32,7 +31,3 @@ urlpatterns = [
          name="password_reset_complete"),
 
 ]
-
-
-handler404 = 'accounts.views.error_404'
-handler500 = 'accounts.views.error_500'
