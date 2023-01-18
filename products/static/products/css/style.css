@@ -536,6 +536,7 @@ body{
     background-color: #00a199;
 	float: left;
 	height: auto;
+    margin-bottom: 50px;
 
 }
 
@@ -951,4 +952,27 @@ a:hover {
 
 #card-img {
     width: 100%;
+}
+
+#logo {
+    width: 25%;
+}
+
+#logo-title {
+    margin: 0px;
+    margin-left: -3px;
+    padding: 0px;
+    color: cornsilk;
+}
+
+#logo-slogan {
+    margin: 0px;
+    margin-left: -3px;
+    padding: 0px;
+    color: cornsilk;
+}
+
+#hand-icon {
+position: absolute;
+margin-left: 5px;
 }

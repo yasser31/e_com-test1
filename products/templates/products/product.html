@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'products/css/product.css' %}">
 {% block content %}
 <div class="collection_text"> <strong>{{ product.name }}</strong></div>
+<p class="sport_text"> Contact:{{ product.contact }}</p>
 <div class="layout_padding collection_section">
   <div class="container">
     <h1 class="new_text" id="product_description"><strong>Description</strong></h1>
@@ -15,28 +16,13 @@
   <div class="row">
     <div class="col-md-6">
       <div class="about-img">
-        <form classs="form-group" action="{% url 'cart:add_to_cart' product.id %}" method="post">
-          {% csrf_token %}
-          <div class="form-group">
-            <button class="new_bt">Add</button>
-          </div>
-        </form>
         {% for image in product.product_images.all %}
         {% if image.default %}
         <div class="shoes-img"><img src="{{ image.image.url }}"></div>
         {% endif %}
         {% endfor %}
         <p class="sport_text">{{ product.name }}</p>
-        <div class="dolar_text">$<strong style="color: #f12a47;">{{ product.price }}</strong> </div>
-        <div class="star_icon">
-          <ul>
-            <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-            <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-            <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-            <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-            <li><a href="#"><img src="{% static 'products/img/star-icon.png' %}"></a></li>
-          </ul>
-        </div>
+        <div class="dolar_text">DA<strong style="color: #f12a47;">{{ product.price }}</strong> </div>
       </div>
     </div>
     <div class="col-md-6">
