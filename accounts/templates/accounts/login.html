@@ -1,28 +1,25 @@
 {% extends 'products/base.html' %}
 
 {% block content %}
-    <h1>Login</h1>
+    <h1 id="login-h1">Se connecter</h1>
     {% if error %}
-        <p>{{ error }}</p>
+    <div class="alert alert-{{ message.tags }}">{{ error }}</div>
     {% endif %}
     <form method="post" action="{% url 'accounts:login' %}">
         {% csrf_token %}
     <div class="form-group">
-        <label for="username">Username:</label>
+        <label for="username">Nom d'utilisateur:</label>
         <input class="username-bt" type="text" name="username" required>
     </div>
         <br>
     <div class="form-group">
-        <label for="password">Password:</label>
+        <label for="password">Mot de passe:</label>
         <input class="password-bt" type="password" name="password" required>
     </div>
         <br>
-    <div class="send_btn">
-        <input class="main-bt" type="submit" value="Log in">
-    </div>
-    <div class="send_btn">
-        <a href="{% url 'accounts:register' %}">Register</a>
-    </div>
-    <a href="{% url 'accounts:reset_password' %}">Forgot Password ?</a>
+    <input class="btn btn-primary" type="submit" value="Se connecter">
+    <a href="{% url 'accounts:register' %}" class="btn btn-primary">S'inscrire</a>
+    <br>
+    <a href="{% url 'accounts:reset_password' %}">Mot de passe oublié ?</a>
     </form>
 {% endblock %}

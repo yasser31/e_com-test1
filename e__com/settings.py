@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'payements',
     'orders',
     'accounts',
-    "phonenumber_field"
+    "phonenumber_field",
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 LOGIN_URL = '/login/'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

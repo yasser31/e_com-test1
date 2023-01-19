@@ -1,17 +1,37 @@
 {% extends 'products/base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-<div id="create_form">
-    {% for message in messages %}
+{% for message in messages %}
     <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-    {% endfor %}
+{% endfor %}
+<h1 id="h1-create-product">Créer un produit </h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    {{ image_form.management_form }}
-    {% for img_form in image_form %}
-    {{ img_form.as_p }}
-    {% endfor %}
-    <input type="submit" value="Create">
-</div>
+    <div class="form-row">
+        <div class="form-group col-md-4 mb-0">
+          {{ form.name|as_crispy_field }}
+        </div>
+        <div class="form-group col-md-4 mb-0">
+            {{ form.contact|as_crispy_field }}
+          </div>
+          <div class="form-group col-md-4 mb-0">
+            {{ form.price|as_crispy_field }}
+          </div>
+        
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12 mb-0">
+            {{ form.description|as_crispy_field }}
+          </div>
+    </div>
+    <div class="form-row">
+        {{ image_form.management_form }}
+        {% for img_form in image_form %}
+        <div class="form-group col-md-3 mb-0">
+          {{ img_form|crispy }}
+        </div>
+        {% endfor %}
+    </div>
+    <input type="submit" class="btn btn-primary" value="Create">
 </form>
 {% endblock %}

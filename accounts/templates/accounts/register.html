@@ -1,9 +1,10 @@
 {% extends 'products/base.html' %}
 {% block register %}
-    <h1>Registration</h1>
+{% load crispy_forms_tags %}
+    <h1 id="registration-h1">S'inscrire</h1>
     <form method="post" action="{% url 'accounts:register' %}">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Register">
+        {{ form|crispy }}
+        <input type="submit" value="S'inscrire" class="btn btn-primary">
     </form>
 {% endblock %}

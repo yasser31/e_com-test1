@@ -976,3 +976,17 @@ a:hover {
 position: absolute;
 margin-left: 5px;
 }
+
+#registration-h1, #login-h1 {
+    margin-left: 0%;
+}
+#h1-create-product {
+    margin-top: 20%;
+    margin-left: 0%;
+}
+#reset-password-div{
+    margin-top: 20%;
+}
+#reset-password-p{
+    margin-left: 0%;
+}
