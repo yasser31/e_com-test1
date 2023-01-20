@@ -37,12 +37,13 @@ html {
 }
 
 body {
-     color: #666666;
+     color: black;
      font-size: 14px;
-     font-family: Poppins;
+     font-family: "Lucida Console", "Courier New", monospace;
      line-height: 1.80857;
      font-weight: normal;
      overflow-x: hidden;
+     background-color: #C0DFD7;
 }
 
 a {
@@ -220,7 +221,6 @@ button {
 .header_section{
 	width: 100%;
 	float: left;
-	background-image: url(../img/banner.png);
 	height: auto;
 	padding: 20px 0px;
 	background-size: 100%;
@@ -255,7 +255,7 @@ button {
 }
 
 .navbar-light .navbar-nav .nav-link {
-    color: #fff;
+    color: black;
     font-size: 16pt;
 }
 
@@ -375,7 +375,7 @@ body{
     
 }
 
-.collection_section{ width: 100%; float: left; padding-bottom: 0px; }
+.collection_section{ width: 100%; float: left; padding: 0px; }
 .new_text{
 	width: 100%;
 	float: left;
@@ -533,11 +533,11 @@ body{
 
 .gallery_section{
 	width: 100%;
-    background-color: #00a199;
 	float: left;
 	height: auto;
     margin-bottom: 50px;
-
+    border-style: solid;
+    border-width: 1px;
 }
 
 .best_shoes {
@@ -684,7 +684,6 @@ a:hover {
 .section_footer {
     width: 100%;
     float: left;
-    background-color: #272222;
     height: auto;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -715,13 +714,12 @@ a:hover {
     width: 100%;
     float: left;
     font-size: 28px;
-    color: #ebebeb;
+    margin-left: 0px;
 }
 .dummy_text {
     width: 100%;
     float: left;
     font-size: 12pt;
-    color: #ffffff;
     margin-left: 0px;
     margin-top: 55px;
     line-height: 25px;
@@ -733,7 +731,6 @@ a:hover {
 }
 .pet_text {
     font-size: 12pt;
-    color: #ffffff;
     padding-left: 16px;
     display: flex;
     top: -26px;
@@ -744,7 +741,7 @@ a:hover {
     width: 100%;
     float: left;
     font-size: 28px;
-    color: #ebebeb;
+    margin-left: 0px;
 }
 
 .copyright {
@@ -763,13 +760,13 @@ a:hover {
 
 .map_text {
     padding-left: 15px;
+    color: #000;
 }
 
 .delivery_text{
 	width: 100%;
 	float: left;
 	font-size: 17px;
-	color: #ffffff;
 }
 
 .enter_email{
@@ -897,15 +894,17 @@ a:hover {
 .card-heading {
     font-size: 18px;
     font-weight: bold;
+    font-family: cursive;
     background: #fff;
-    padding: 10px 15px;
+    padding-left: 15px;
 }
 
 .card-text {
-    padding: 10px 15px;
+    padding-left: 15px;
     background: #fff;
     font-size: 14px;
     color: #636262;
+    font-family: cursive;
 }
 
 .card-button {
@@ -916,6 +915,7 @@ a:hover {
     background-color: #1F487E;
     color: #fff;
     border-radius: 0 0 8px 8px;
+    font-family: cursive;
 }
 
 .card-button:hover {
@@ -962,14 +962,14 @@ a:hover {
     margin: 0px;
     margin-left: -3px;
     padding: 0px;
-    color: cornsilk;
+    color: black;
 }
 
 #logo-slogan {
     margin: 0px;
     margin-left: -3px;
     padding: 0px;
-    color: cornsilk;
+    color: black;
 }
 
 #hand-icon {
@@ -987,6 +987,19 @@ margin-left: 5px;
 #reset-password-div{
     margin-top: 20%;
 }
-#reset-password-p{
+#reset-password-đp{
     margin-left: 0%;
+}
+
+#product-main-img{
+    padding-left:0px;
+}
+#about-image {
+    margin-left: 0px;
+}
+#product_description, #decription-text{
+    margin-left: -32px;
+}
+#home-page-title{
+    margin-left: 0px;
 }

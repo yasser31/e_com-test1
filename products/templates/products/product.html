@@ -9,13 +9,13 @@
 <div class="layout_padding collection_section">
   <div class="container">
     <h1 class="new_text" id="product_description"><strong>Description</strong></h1>
-    <p class="consectetur_text">{{ product.description }}</p>
+    <p class="consectetur_text" id="decription-text">{{ product.description }}</p>
   </div>
 </div>
 <div class="collection_section_2">
   <div class="row">
-    <div class="col-md-6">
-      <div class="about-img">
+    <div class="col-md-12" id="product-main-img">
+      <div class="about-img" id="about-image">
         {% for image in product.product_images.all %}
         {% if image.default %}
         <div class="shoes-img"><img src="{{ image.image.url }}"></div>
@@ -25,20 +25,17 @@
         <div class="dolar_text">DA<strong style="color: #f12a47;">{{ product.price }}</strong> </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="row">
+  </div>
+    <div class="row">
         {% for image in product.product_images.all %}
           {% if not image.default %}
-          <div classs="col-md-6">
-            <div>
+        <div classs="col-md-4">
           <div class="shoes-img"><img src="{{ image.thumbnail.url }}"></div>
-          </div>
         </div>
           {% endif %}
           {% endfor %}
-        </div>
-        </div>
     </div>
+</div>
     
     <!--
     <div class="col-md-6">

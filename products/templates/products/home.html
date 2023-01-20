@@ -10,7 +10,7 @@
     <div class="alert alert-{{ message.tags }}">{{ message }}</div>
     {% endfor %}
     <div class="container">
-        <h1 class="new_text"><strong>Améliorez votre expérience d'achat</strong></h1>
+        <h1 class="new_text" id="home-page-title"><strong>Améliorez votre expérience d'achat</strong></h1>
         <p class="consectetur_text">Profitez de la commodité et de la facilité des achats en ligne avec notre site web
             convivial. <br>Faites vos achats maintenant et constatez la différence par
             vous-même.</p>
@@ -37,10 +37,7 @@
                         {{ product.name }}
                     </div>
                     <div class="card-text">
-                        {{ product.description }}
-                    </div>
-                    <div class="card-text">
-                        {{ product.contact }}
+                        Contact:{{ product.contact }}
                     </div>
                     <div class="card-text">
                         {{ product.price }} DA

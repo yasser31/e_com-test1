@@ -63,6 +63,7 @@ def create_product(request):
     else:
         form = ProductForm()
         image_formset = ImageFormSet(prefix="images")
+    messages.warning(request, "Veuillez choisir une seule image default")
     return render(request, 'products/create_product.html', {'form': form, 'image_form': image_formset})
 
 

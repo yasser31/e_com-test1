@@ -23,5 +23,5 @@ class ImageForm(ModelForm):
 
 
 ImageFormSet = inlineformset_factory(
-    Product, Image, fields=('image',), extra=4)
+    Product, Image, fields=('image', "default"), extra=4)
 
