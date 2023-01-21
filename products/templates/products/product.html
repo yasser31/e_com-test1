@@ -15,29 +15,27 @@
 <div class="collection_section_2">
   <div class="row">
     <div class="col-md-12" id="product-main-img">
-      <div class="about-img" id="about-image">
-        {% for image in product.product_images.all %}
-        {% if image.default %}
-        <div class="shoes-img"><img src="{{ image.image.url }}"></div>
-        {% endif %}
-        {% endfor %}
-        <p class="sport_text">{{ product.name }}</p>
-        <div class="dolar_text">DA<strong style="color: #f12a47;">{{ product.price }}</strong> </div>
-      </div>
+      {% for image in product.product_images.all %}
+      {% if image.default %}
+      <div id="shoes-img"><a href="{{ image.image.url }}"><img id="about-image" src="{{ image.image.url }}"></div></a>
+      {% endif %}
+      {% endfor %}
+      <p class="sport_text">{{ product.name }}</p>
+      <div class="dolar_text">DA<strong style="color: #f12a47;">{{ product.price }}</strong> </div>
     </div>
   </div>
-    <div class="row">
-        {% for image in product.product_images.all %}
-          {% if not image.default %}
-        <div classs="col-md-4">
-          <div class="shoes-img"><img src="{{ image.thumbnail.url }}"></div>
-        </div>
-          {% endif %}
-          {% endfor %}
+  <div class="row">
+    {% for image in product.product_images.all %}
+    {% if not image.default %}
+    <div classs="col-md-4">
+      <div class="shoes-img"><a href="{{ image.image.url }}"><img class="product-images" src="{{ image.thumbnail.url }}"></a></div>
     </div>
+    {% endif %}
+    {% endfor %}
+  </div>
 </div>
-    
-    <!--
+
+<!--
     <div class="col-md-6">
       <div class="about-img2">
         <div class="shoes-img2">
@@ -64,7 +62,7 @@
     </div>
     </div>
     -->
-  <!--
+<!--
   <div class="layout_padding contact_section">
     <div class="container">
       <h1 class="new_text"><strong>Shop Now</strong></h1>
@@ -100,9 +98,9 @@
       </div>
     </div>
   -->
-  </div>
-  {% endblock %}
+</div>
+{% endblock %}
 
-  {% block extra_scripts %}
-  <script src="{% static 'products/js/product.js' %}"></script>
-  {% endblock %}
+{% block extra_scripts %}
+<script src="{% static 'products/js/product.js' %}"></script>
+{% endblock %}

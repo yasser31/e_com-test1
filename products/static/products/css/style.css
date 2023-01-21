@@ -421,6 +421,9 @@ body{
 
 .shoes-img{
 	width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    min-height: 100%;
 	float: left;
 	text-align: center;
 	padding-top: 0px;
@@ -862,7 +865,15 @@ a:hover {
 
 .card-sl {
     border-radius: 8px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0px 0px 0px grey;
+    -webkit-transition:  box-shadow .6s ease-out;
+     box-shadow: .8px .9px 3px grey;
+    width: 100%;
+    height:50%;
+}
+.card-sl:hover {
+    box-shadow: 5px 8px 20px black;
+    -webkit-transition:  box-shadow .6s ease-in;
 }
 
 .card-image img {
@@ -952,6 +963,8 @@ a:hover {
 
 #card-img {
     width: 100%;
+    height: 100%;
+    border-radius: 8px 8px 0px 0;
 }
 
 #logo {
@@ -995,11 +1008,29 @@ margin-left: 5px;
     padding-left:0px;
 }
 #about-image {
-    margin-left: 0px;
+    height: auto;
+    width: auto;
+    max-height: 100%;
+    max-width: 100%;
 }
 #product_description, #decription-text{
     margin-left: -32px;
 }
 #home-page-title{
     margin-left: 0px;
+}
+
+
+#shoes-img{
+	width: 100%;
+	float: left;
+	text-align: center;
+	padding-top: 0px;
+	padding-bottom: 40px;
+	margin: 0px;
+}
+
+.product-images {
+    max-height: 100% !important;
+    max-width: 100% !important;
 }

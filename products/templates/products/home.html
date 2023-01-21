@@ -24,14 +24,11 @@
             {% for product in products %}
             <div class="col-md-3">
                 <div class="card-sl">
-                    <div class="card-image">
                         {% for image in product.product_images.all %}
                         {% if image.default %}
                         <a href="{% url 'products:view_product' product.id %}"><img src="{{ image.image.url }}" id="card-img"></a>
                         {% endif %}
                         {% endfor %}
-                    </div>
-
                     <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
                     <div class="card-heading">
                         {{ product.name }}
