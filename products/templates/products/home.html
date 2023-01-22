@@ -39,6 +39,10 @@
                     <div class="card-text">
                         {{ product.price }} DA
                     </div>
+                    {% if product.user == request.user %}
+                    <a href="{% url 'products:edit_product' product.id %}">edit</a>
+                    <a href="{% url 'products:product_delete' product.pk %}">Delete</a>
+                    {% endif %}
                     <a href="{% url 'products:view_product' product.id %}" class="card-button">Détails</a>
                 </div>
             </div>

@@ -27,7 +27,7 @@ class VariationValue(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, default="")
+    name = models.CharField('Nom', max_length=100, default="")
     parent = models.ForeignKey(
         'self', on_delete=models.DO_NOTHING, related_name="childs", null=True, blank=True)
 
@@ -38,14 +38,14 @@ class Category(models.Model):
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,
                              related_name="user_products", null=True, blank=True)
-    name = models.CharField(max_length=100)
+    name = models.CharField('Nom', max_length=100)
     category = models.ForeignKey(
         Category, on_delete=models.DO_NOTHING, related_name="products", null=True, blank=True)
-    description = models.TextField()
+    description = models.TextField('Description')
     variations = models.ManyToManyField(VariationOption)
-    price = models.DecimalField(
+    price = models.DecimalField('Prix',
         max_digits=5, decimal_places=2, null=True, blank=True, default=0)
-    contact = models.CharField(default="Non disponible", max_length=100)
+    contact = models.CharField('Contact', default="Non disponible", max_length=100)
     created_date = models.DateTimeField('date created', default=timezone.now, null=True, blank=True)
 
     
@@ -69,14 +69,14 @@ class ProductVariation(models.Model):
 
 class Image(models.Model):
     product = models.ForeignKey(
-        Product, on_delete=models.DO_NOTHING, related_name="product_images", null=True, blank=True)
+        Product, on_delete=models.CASCADE, related_name="product_images", null=True, blank=True)
     variant = models.ForeignKey(
         ProductVariation, on_delete=models.DO_NOTHING, related_name="variant_images", null=True, blank=True)
     image = models.ImageField(
         upload_to='img', null=True, blank=True)
     thumbnail = models.ImageField(
         upload_to='thumbnails', null=True, blank=True)
-    default = models.BooleanField(default=False)
+    default = models.BooleanField('Image pricipale', default=False)
 
     def get_image(self):
         if self.image:

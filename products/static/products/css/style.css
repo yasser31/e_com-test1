@@ -872,7 +872,7 @@ a:hover {
     height:50%;
 }
 .card-sl:hover {
-    box-shadow: 5px 8px 20px black;
+    box-shadow: 5px 8px 20px blue;
     -webkit-transition:  box-shadow .6s ease-in;
 }
 
