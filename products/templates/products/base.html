@@ -39,6 +39,7 @@
 <!-- body -->
 
 <body class="main-layout">
+  <div class="container" id="main-container">
   <!-- header section start -->
   <div class="header_section">
     <div class="container">
@@ -141,40 +142,6 @@
           <div class="col-sm-2"></div>
         </div>
       </div>
-      <div class="footer_section_2">
-        <div class="row">
-          <div class="col-sm-4 col-lg-4">
-            <h2 class="shop_text">Address </h2>
-            <div class="image-icon"><img src="{% static 'products/img/map-icon.png' %}"><span class="pet_text">No 40
-                Baria Sreet 15/2 NewYork
-                City, NY, United States.</span></div>
-          </div>
-          <div class="col-sm-4 col-md-6 col-lg-4">
-            <h2 class="shop_text">Our Company </h2>
-            <div class="delivery_text">
-              <ul>
-                <li>Delivery</li>
-                <li>Legal Notice</li>
-                <li>About us</li>
-                <li>Secure payment</li>
-                <li>Contact us</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-4">
-            <h2 class="adderess_text">Products</h2>
-            <div class="delivery_text">
-              <ul>
-                <li>Prices drop</li>
-                <li>New products</li>
-                <li>Best sales</li>
-                <li>Contact us</li>
-                <li>Sitemap</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
   <!-- section footer end -->
@@ -242,6 +209,7 @@
   </script>
   {% block extra_script %}
   {% endblock %}
+</div>
 </body>
 
 </html>

@@ -116,7 +116,7 @@ class ProductEditView(UpdateView):
         self.object = self.get_object()
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        image_formset = ImageFormSet(instance=self.object)
+        image_formset = ImageFormSet()
         return self.render_to_response(
             self.get_context_data(form=form, image_form=image_formset)
         )

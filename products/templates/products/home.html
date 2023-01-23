@@ -40,8 +40,10 @@
                         {{ product.price }} DA
                     </div>
                     {% if product.user == request.user %}
-                    <a href="{% url 'products:edit_product' product.id %}">edit</a>
-                    <a href="{% url 'products:product_delete' product.pk %}">Delete</a>
+                    <div class="card-text">
+                    <a href="{% url 'products:edit_product' product.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a href="{% url 'products:product_delete' product.pk %}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </div>
                     {% endif %}
                     <a href="{% url 'products:view_product' product.id %}" class="card-button">Détails</a>
                 </div>

@@ -28,7 +28,11 @@
     {% for image in product.product_images.all %}
     {% if not image.default %}
     <div classs="col-md-4">
-      <div class="shoes-img"><a href="{{ image.image.url }}"><img class="product-images" src="{{ image.thumbnail.url }}"></a></div>
+      <div class="shoes-img">
+        <a href="{{ image.image.url }}"><img class="product-images" src="{{ image.thumbnail.url }}">
+          <a href="{% url 'products:product_delete' product.pk %}"><i class="fa fa-trash"
+              aria-hidden="true"></i></a></a>
+      </div>
     </div>
     {% endif %}
     {% endfor %}
