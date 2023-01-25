@@ -1,5 +1,6 @@
 {% extends 'products/base.html' %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 {% block content %}
 <div class="collection_section layout_padding">
 {% for message in messages %}
@@ -7,7 +8,7 @@
 {% endfor %}
 </div>
 <h1 id="h1-create-product">Créer un produit </h1>
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" action="{% url 'products:create_product' %}">
     {% csrf_token %}
     <div class="form-row">
         <div class="form-group col-md-4 mb-0">

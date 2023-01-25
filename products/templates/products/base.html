@@ -64,6 +64,13 @@
                     <a href="{% url 'products:categories' 'Vêtements' %}">Vêtements</a>
                     <ul class="child-menu hide">
                       <li class="child-item"><a href="{% url 'products:categories' 'Chaussures' %}">Chaussures</a></li>
+                      <li class="child-item"><a href="{% url 'products:categories' 'Vestes' %}">Veste</a></li>
+                      <li class="child-item"><a href="{% url 'products:categories' 'Pantalons' %}">Pantalons</a></li>
+                      <li class="child-item"><a href="{% url 'products:categories' 'Chemises' %}">Chemises</a></li>
+                      <li class="child-item"><a href="{% url 'products:categories' 'Basket' %}">Basket</a></li>
+                      <li class="child-item"><a href="{% url 'products:categories' 'T-shirt' %}">T-shirt</a></li>
+                      <li class="child-item"><a href="{% url 'products:categories' 'Mentaux' %}">Mentaux</a></li>
+
                     </ul>
                   </li>
                   <li class="dropdown-item">
@@ -73,16 +80,19 @@
                     </ul>
                   </li>
                   <li class="dropdown-item">
-                    <a href="#">Accessoires</a>
-                    <ul class="child-menu">
-                      <li class="child-item"><a href="{% url 'products:categories' 'Casques Audio' %}">Casques Audio</a></li>
-                    </ul>
+                    <a href="{% url 'products:categories' 'Accessoires' %}">Accessoires</a>
                   </li>
                   <li class="dropdown-item">
                     <a href="{% url 'products:categories' 'Automobiles' %}">Automobiles</a>
                     <ul class="child-menu">
                       <li class="child-item"><a href="{% url 'products:categories' 'Voitures' %}">Voitures</a></li>
                     </ul>
+                  </li>
+                  <li class="dropdown-item">
+                    <a href="{% url 'products:categories' 'Cosmétiques' %}">Cosmétiques</a>
+                  </li>
+                  <li class="dropdown-item">
+                    <a href="{% url 'products:categories' 'Autres' %}">Divers</a>
                   </li>
                 </ul>
 
@@ -97,7 +107,7 @@
                 
                 {% endif %}
                 <a class="nav-item nav-link" href="{% url 'products:create_product' %}" title="créer un produit"><i class="fa fa-plus"></i></a>
-                <a class="nav-item nav-link last" href="#"><i class="fa fa-search"></i></a>
+                <form method="get" action="{% url 'products:search' %}"><input id="search-input" name="q"><button id="search-button" aria-hidden="true" type="submit"><i class="fa fa-search" ></i></button></form>
               </div>
 
             </div>

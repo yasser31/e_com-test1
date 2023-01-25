@@ -6,7 +6,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, DeleteView
-
+from haystack.query import SearchQuerySet
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from haystack import signals, connections
+from django.db.models import Q
+from django.db.models import F
 
 def home(request):
     products = Product.objects.all()
@@ -40,10 +45,11 @@ def view_product(request, product_id):
     return render(request, 'products/product.html', context)
 
 
+@login_required
 @transaction.atomic
 def create_product(request):
     if request.method == 'POST':
-        form = ProductForm(request.POST, prefix="product")
+        form = ProductForm(request.POST)
         image_formset = ImageFormSet(
             request.POST, request.FILES, prefix="images")
         if form.is_valid() and image_formset.is_valid():
@@ -97,9 +103,11 @@ def create_product_variation(request):
 
 
 def user_products(request):
-    products = Product.objects.filter(user=request.user).order_by("-created_date")
+    products = Product.objects.filter(
+        user=request.user).order_by("-created_date")
     if not products:
-        messages.warning(request,"Vous n'avez aucun produit vous pouvez en ajouter en haut à droite")
+        messages.warning(
+            request, "Vous n'avez aucun produit vous pouvez en ajouter en haut à droite")
     context = {
         "products": products
     }
@@ -125,7 +133,8 @@ class ProductEditView(UpdateView):
         self.object = self.get_object()
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        image_formset = ImageFormSet(self.request.POST, self.request.FILES, instance=self.object)
+        image_formset = ImageFormSet(
+            self.request.POST, self.request.FILES, instance=self.object)
         if form.is_valid() and image_formset.is_valid():
             return self.form_valid(form, image_formset)
         else:
@@ -142,17 +151,48 @@ class ProductEditView(UpdateView):
         return self.render_to_response(
             self.get_context_data(form=form, image_form=image_formset)
         )
-    
-class ProductDeleteView(DeleteView):
-        model = Product
-        template_name = 'products/product_confirm_delete.html'
-        success_url = reverse_lazy('products:home')
 
-        def delete(self, request, *args, **kwargs):
-            """
-            Override the delete method to delete related images as well.
-            """
-            self.object = self.get_object()
-            self.object.delete()
-            messages.warning(self.request, "Produit supprimé !")
-            return redirect(self.get_success_url())
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'products/product_confirm_delete.html'
+    success_url = reverse_lazy('products:home')
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Override the delete method to delete related images as well.
+        """
+        self.object = self.get_object()
+        self.object.delete()
+        messages.warning(request, "Produit supprimé !")
+        return redirect(self.get_success_url())
+
+
+class ImageDeleteView(DeleteView):
+    model = Image
+    template_name = 'products/image_confirm_delete.html'
+    success_url = reverse_lazy('products:home')
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Override the delete method to delete related images as well.
+        """
+        self.object = self.get_object()
+        self.object.delete()
+        messages.warning(request, "Image supprimé!")
+        return redirect(self.get_success_url())
+
+
+def search(request):
+    query = request.GET.get("q")
+    if query:
+        products = Product.objects.filter(
+            Q(name__icontains=query) |
+            Q(category__name__icontains=query) |
+            Q(description__icontains=query)
+        )
+        if not products:
+            messages.warning(request,
+                "Aucun produit ne correspond à votre recherche veuiller vérifier votre orthographe")
+            products = Product.objects.all()
+    return render(request, "products/search.html", {"products": products})

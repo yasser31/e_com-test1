@@ -26,9 +26,13 @@
                 <div class="card-sl">
                         {% for image in product.product_images.all %}
                         {% if image.default %}
+                        <img src="{% static 'products/img/pin.png' %}" id="pin-img">
                         <a href="{% url 'products:view_product' product.id %}"><img src="{{ image.image.url }}" id="card-img"></a>
                         {% endif %}
                         {% endfor %}
+                        {% if not product.product_images.all %}
+                        <a href="{% url 'products:view_product' product.id %}"><img src="{% static 'products/img/no-image.jpg' %}" id="card-img"></a>
+                        {% endif %}
                     <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
                     <div class="card-heading">
                         {{ product.name }}

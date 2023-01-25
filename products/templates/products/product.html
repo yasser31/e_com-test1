@@ -17,9 +17,16 @@
     <div class="col-md-12" id="product-main-img">
       {% for image in product.product_images.all %}
       {% if image.default %}
+      {% if product.user == request.user %}
+      <div id="delete-default-image"><a href="{% url 'products:image_delete' image.pk %}"><i class="fa fa-trash"
+            aria-hidden="true"></i></a></div>
+      {% endif %}
       <div id="shoes-img"><a href="{{ image.image.url }}"><img id="about-image" src="{{ image.image.url }}"></div></a>
       {% endif %}
       {% endfor %}
+      {% if not product.product_images.all %}
+      <div id="shoes-img"><img src="{% static 'products/img/no-image.jpg' %}"></div>
+      {% endif %}
       <p class="sport_text">{{ product.name }}</p>
       <div class="dolar_text">DA<strong style="color: #f12a47;">{{ product.price }}</strong> </div>
     </div>
@@ -29,9 +36,12 @@
     {% if not image.default %}
     <div classs="col-md-4">
       <div class="shoes-img">
+        {% if product.user == request.user %}
+        <div id="delete-image"><a href="{% url 'products:image_delete' image.pk %}"><i class="fa fa-trash"
+              aria-hidden="true"></i></a></div>
+        {% endif %}
         <a href="{{ image.image.url }}"><img class="product-images" src="{{ image.thumbnail.url }}">
-          <a href="{% url 'products:product_delete' product.pk %}"><i class="fa fa-trash"
-              aria-hidden="true"></i></a></a>
+        </a>
       </div>
     </div>
     {% endif %}

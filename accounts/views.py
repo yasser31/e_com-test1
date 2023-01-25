@@ -59,7 +59,7 @@ def register_view(request):
             send_mail(
                 subject=subject,
                 message=message,
-                from_email=EMAIL_HOST_USER,
+                from_email="Swift Sell",
                 recipient_list=[email]
             )
             messages.success(
