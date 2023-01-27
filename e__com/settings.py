@@ -130,18 +130,14 @@ HAYSTACK_CONNECTIONS = {
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        'APP': {
-            'client_id': config('YOUR_CLIENT_ID'),
-            'secret': config('YOUR_SECRET'),
-            'key': '',
-        },
         "SCOPE": [
             "profile",
             "email",
         ],
         "AUTH_PARAMS": {
             "access_type": "online",
-        }
+        },
+        'OAUTH_PKCE_ENABLED': True,
     },
      'facebook': {
         'METHOD': 'oauth2',
@@ -211,4 +207,5 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 LOGIN_URL = '/login/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 SITE_ID = 1
-LOGIN_REDIRECT = "products:home"
+LOGIN_REDIRECT_URL = "products:home"
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS =True

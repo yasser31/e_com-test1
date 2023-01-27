@@ -1,6 +1,18 @@
 {% extends 'products/base.html' %}
+{% load i18n %}
+{% load account %}
+{% load socialaccount %}
 {% block register %}
 {% load crispy_forms_tags %}
+{% get_providers as socialaccount_providers %} 
+{% if socialaccount_providers %}
+<a href="{% provider_login_url 'google' %}" class="btn btn-danger">
+    <i class="fa fa-google"></i>  Se Connecter avec Google
+</a>
+<a href="{% provider_login_url 'facebook' %}" class="btn btn-primary">
+    <i class="fa fa-facebook"></i> Se connecter avec Facebook
+</a>
+{% endif %}
     <h1 id="registration-h1">S'inscrire</h1>
     <form method="post" action="{% url 'accounts:register' %}">
         {% csrf_token %}

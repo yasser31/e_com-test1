@@ -9,12 +9,6 @@
     {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">{{ message }}</div>
     {% endfor %}
-    <div class="container">
-        <h1 class="new_text" id="home-page-title"><strong>Améliorez votre expérience d'achat</strong></h1>
-        <p class="consectetur_text">Profitez de la commodité et de la facilité des achats en ligne avec notre site web
-            convivial. <br>Faites vos achats maintenant et constatez la différence par
-            vous-même.</p>
-    </div>
 </div>
 <!-- new collection section end -->
 <!-- New Arrivals section start -->
@@ -22,25 +16,22 @@
     <div class="container">
         <div class="row">
             {% for product in products %}
-            <div class="col-md-3">
+            <div class="col-md-3 product-card">
                 <div class="card-sl">
                         {% for image in product.product_images.all %}
                         {% if image.default %}
-                        <img src="{% static 'products/img/pin.png' %}" id="pin-img">
                         <a href="{% url 'products:view_product' product.id %}"><img src="{{ image.image.url }}" id="card-img"></a>
                         {% endif %}
                         {% endfor %}
                         {% if not product.product_images.all %}
                         <a href="{% url 'products:view_product' product.id %}"><img src="{% static 'products/img/no-image.jpg' %}" id="card-img"></a>
                         {% endif %}
-                    <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
                     <div class="card-heading">
                         {{ product.name }}
                     </div>
                     <div class="card-text">
-                        Contact:{{ product.contact }}
-                    </div>
-                    <div class="card-text">
+                        Contact : {{ product.contact }}
+                        <br>
                         {{ product.price }} DA
                     </div>
                     {% if product.user == request.user %}

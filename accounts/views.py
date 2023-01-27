@@ -26,7 +26,7 @@ def login_view(request):
             return redirect('products:home')
         else:
             # Return an 'invalid login' error message.
-            return render(request, 'accounts/login.html', {'error': 'Invalid login'})
+            return render(request, 'accounts/login.html', {"error": "Nom d'utilisateur ou mot de passe incorrect"})
     else:
         return render(request, 'accounts/login.html')
 
