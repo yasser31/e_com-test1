@@ -4,6 +4,7 @@
 {% block content %}
 {% get_providers as socialaccount_providers %} 
 {% if socialaccount_providers %}
+{{ auth_error }}
 <a href="{% provider_login_url 'google' %}" class="btn btn-danger">
     <i class="fa fa-google"></i>  Se Connecter avec Google
 </a>

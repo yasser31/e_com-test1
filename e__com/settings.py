@@ -130,12 +130,17 @@ HAYSTACK_CONNECTIONS = {
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
+        'APP': {
+            'client_id': config("YOUR_CLIENT_ID"),
+            'secret': config("YOUR_SECRET"),
+            'key': ''
+        },
         "SCOPE": [
             "profile",
             "email",
         ],
         "AUTH_PARAMS": {
-            "access_type": "online",
+            "access_type": "offline",
         },
         'OAUTH_PKCE_ENABLED': True,
     },

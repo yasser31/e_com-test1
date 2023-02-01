@@ -4,50 +4,148 @@
 <!-- home.html -->
 <!-- header section end -->
 <!-- new collection section start -->
-
 <div class="collection_section layout_padding">
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-    {% endfor %}
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
 </div>
 <!-- new collection section end -->
 <!-- New Arrivals section start -->
 <div class="layout_padding gallery_section">
-    <div class="container">
-        <div class="row">
-            {% for product in products %}
-            <div class="col-md-3 product-card">
-                <div class="card-sl">
-                        {% for image in product.product_images.all %}
-                        {% if image.default %}
-                        <a href="{% url 'products:view_product' product.id %}"><img src="{{ image.image.url }}" id="card-img"></a>
-                        {% endif %}
-                        {% endfor %}
-                        {% if not product.product_images.all %}
-                        <a href="{% url 'products:view_product' product.id %}"><img src="{% static 'products/img/no-image.jpg' %}" id="card-img"></a>
-                        {% endif %}
-                    <div class="card-heading">
-                        {{ product.name }}
-                    </div>
-                    <div class="card-text">
-                        Contact : {{ product.contact }}
-                        <br>
-                        {{ product.price }} DA
-                    </div>
-                    {% if product.user == request.user %}
-                    <div class="card-text">
-                    <a href="{% url 'products:edit_product' product.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                    <a href="{% url 'products:product_delete' product.pk %}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                    </div>
-                    {% endif %}
-                    <a href="{% url 'products:view_product' product.id %}" class="card-button">Détails</a>
-                </div>
-            </div>
-            {% endfor %}
+  <div class="container">
+    <div class="row" id="cards-row">
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header">
+            <h5>Filter</h5>
+          </div>
+          <div class="card-body">
+            <form id="category-filter-form">
+              {% csrf_token %}
+              <h6>Catégorie</h6>
+              <div class="form-check">
+                <input class="category-checkbox" type="checkbox" value="Automobile" id="Automobile">
+                <label class="form-check-label" for="Automobile">
+                  Automobile
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="category-checkbox" type="checkbox" value="Vêtements" id="Vêtements">
+                <label class="form-check-label" for="Vêtements">
+                  Vêtements
+                </label>
+              </div>
+              <h6>Price</h6>
+              <div class="form-check">
+                <input class="form-price-input" type="radio" value="increasing" id="increasing" name="optradio">
+                <label class="form-check-label" for="increasing">
+                  Increasing
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-price-input" type="radio" value="decreasing" id="decreasing" name="optradio">
+                <label class="form-check-label" for="decreasing">
+                  Decreasing
+                </label>
+              </div>
+              <button type="submit">Filter</button>
+            </form>
+          </div>
         </div>
+      </div>
+      {% for product in products %}
+      <div class="col-md-3 product-card">
+        <div class="card-sl">
+          {% for image in product.product_images.all %}
+          {% if image.default %}
+          <a href="{% url 'products:view_product' product.id %}"><img src="{{ image.image.url }}" id="card-img"></a>
+          {% endif %}
+          {% endfor %}
+          {% if not product.product_images.all %}
+          <a href="{% url 'products:view_product' product.id %}"><img src="{% static 'products/img/no-image.jpg' %}"
+              id="card-img"></a>
+          {% endif %}
+          <div class="card-heading">
+            {{ product.name }}
+          </div>
+          <div class="card-text">
+            Contact : {{ product.contact }}
+            <br>
+            {{ product.price }} DA
+          </div>
+          <a href="{% url 'products:view_product' product.id %}" class="card-button">Détails</a>
+          {% if product.user == request.user %}
+          <div class="card-text">
+            <a href="{% url 'products:edit_product' product.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+            <a href="{% url 'products:product_delete' product.pk %}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
     </div>
+  </div>
 </div>
 <!-- New Arrivals section end -->
 <!-- contact section start -->
+<script>
+  const form = document.getElementById("category-filter-form")
+  form.addEventListener("submit", event => {
+    event.preventDefault();
 
+    // Get the selected categories and price range
+    const selectedCategories = Array.from(document.querySelectorAll(".category-checkbox:checked")).map(c => c.value);
+    const selectedPrice = Array.from(document.querySelectorAll(".form-price-input:checked")).map(c => c.value);
+    // Make a GET request to the backend view
+    fetch("products/filter_category", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'X-CSRFToken': document.querySelector("input[name=csrfmiddlewaretoken]").value
+      },
+      body: JSON.stringify({ categories: selectedCategories, price: selectedPrice})
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response data and update the product display
+        // The server should return the filtered products as JSON
+        // Clear the existing products from the page
+        const cards = document.querySelectorAll('.product-card');
+        cards.forEach(card => card.remove());
+        let productContainer = document.getElementById('cards-row');
+        for (let i = 0; i < data.products.length; i++) {
+          let imageUrl = null;
+          let product = data.products[i];
+          let productCard = document.createElement("div");
+          productCard.classList.add("col-md-3");
+          productCard.classList.add("product-card");
+          if (product.images.length === 0) {
+            imageUrl = "/static/products/img/no-image.jpg";
+          }
+          else {
+            for (let i = 0; i < product.images.length; i++) {
+              let image = product.images[i];
+              if (image.default === true) {
+                imageUrl = image.url;
+              }
+            }
+          }
+
+          productCard.innerHTML = `<div class="card-sl">
+              <img src="${imageUrl}" id="card-img">
+              <div class="card-heading">
+                 ${product.name}
+              </div>
+              <div class="card-text">
+                 Contact : ${product.contact}
+                 <br>
+                  ${product.price} DA
+              </div>
+              <a href="products/${product.id}" class="card-button">Détails</a>
+              </div>`;
+          productContainer.appendChild(productCard)
+        }
+      });
+  })
+</script>
 {% endblock %}

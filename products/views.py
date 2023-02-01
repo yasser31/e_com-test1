@@ -12,6 +12,11 @@ from django.dispatch import receiver
 from haystack import signals, connections
 from django.db.models import Q
 from django.db.models import F
+from django.http import JsonResponse
+import json
+from django.forms.models import model_to_dict
+
+
 
 def home(request):
     products = Product.objects.all()
@@ -196,3 +201,26 @@ def search(request):
                 "Aucun produit ne correspond à votre recherche veuiller vérifier votre orthographe")
             products = Product.objects.all()
     return render(request, "products/search.html", {"products": products})
+
+
+def filter_by_category(request):
+    response = json.load(request)
+    categories = json.load(request)["categories"]
+    price_type = json.load(request)["price"]
+    if price_type == "increasing":
+        products = Product.objects.filter(category__name__in=categories).order_by("price")
+    elif price_type == "decreasing":
+        products = Product.objects.filter(category__name__in=categories).order_by("-price")
+    filtered_products = []
+    for product in products:
+        product_images = []
+        product_dict = model_to_dict(product)
+        for image in product.product_images.all():
+            image_dict = {}
+            image_dict["url"] = image.image.url
+            image_dict["default"] = image.default
+            product_images.append(image_dict)
+        product_dict["images"] = product_images
+        filtered_products.append(product_dict)
+    print(filtered_products)
+    return JsonResponse({'products': filtered_products })

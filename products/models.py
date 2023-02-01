@@ -42,7 +42,7 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.DO_NOTHING, related_name="products", null=True, blank=True)
     description = models.TextField('Description')
-    variations = models.ManyToManyField(VariationOption)
+    variations = models.ManyToManyField(VariationOption, null=True, blank=True)
     price = models.DecimalField('Prix',
         max_digits=5, decimal_places=2, null=True, blank=True, default=0)
     contact = models.CharField('Contact', default="Non disponible", max_length=100)
@@ -57,7 +57,7 @@ class ProductVariation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,
                              related_name="user_variants", null=True, blank=True)
     name = models.CharField(max_length=100)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
     option = models.ManyToManyField(VariationOption, blank=True)
     value = models.ManyToManyField(VariationValue, blank=True)
     price = models.DecimalField(
