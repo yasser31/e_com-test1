@@ -204,13 +204,25 @@ def search(request):
 
 
 def filter_by_category(request):
-    response = json.load(request)
-    categories = json.load(request)["categories"]
-    price_type = json.load(request)["price"]
-    if price_type == "increasing":
-        products = Product.objects.filter(category__name__in=categories).order_by("price")
-    elif price_type == "decreasing":
-        products = Product.objects.filter(category__name__in=categories).order_by("-price")
+    data = json.load(request)
+    categories = data["categories"]
+    price_type = data["price"]
+    products = None
+    if categories and  price_type:
+        if price_type[0] == "increasing":
+            products = Product.objects.filter(category__name__in=categories).order_by("price")
+        elif price_type[0] == "decreasing":
+            products = Product.objects.filter(category__name__in=categories).order_by("-price")
+    elif price_type and not categories:
+        if price_type[0] == "increasing":
+            products = Product.objects.all().order_by("price")
+        elif price_type[0] == "decreasing":
+            products = Product.objects.all().order_by("-price")
+    elif categories and not price_type:
+        products = Product.objects.filter(category__name__in=categories)
+    else:
+        products = Product.objects.all()
+
     filtered_products = []
     for product in products:
         product_images = []
@@ -222,5 +234,4 @@ def filter_by_category(request):
             product_images.append(image_dict)
         product_dict["images"] = product_images
         filtered_products.append(product_dict)
-    print(filtered_products)
-    return JsonResponse({'products': filtered_products })
+    return JsonResponse({'products': filtered_products})

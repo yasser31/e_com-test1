@@ -24,8 +24,8 @@
               {% csrf_token %}
               <h6>Catégorie</h6>
               <div class="form-check">
-                <input class="category-checkbox" type="checkbox" value="Automobile" id="Automobile">
-                <label class="form-check-label" for="Automobile">
+                <input class="category-checkbox" type="checkbox" value="Automobiles" id="Automobiles">
+                <label class="form-check-label" for="Automobiles">
                   Automobile
                 </label>
               </div>
@@ -95,7 +95,7 @@
 
     // Get the selected categories and price range
     const selectedCategories = Array.from(document.querySelectorAll(".category-checkbox:checked")).map(c => c.value);
-    const selectedPrice = Array.from(document.querySelectorAll(".form-price-input:checked")).map(c => c.value);
+    const selectedPrice = Array.from(document.querySelectorAll(".form-price-input:checked")).map(x => x.value);
     // Make a GET request to the backend view
     fetch("products/filter_category", {
       method: "POST",
@@ -103,7 +103,7 @@
         "Content-Type": "application/json",
         'X-CSRFToken': document.querySelector("input[name=csrfmiddlewaretoken]").value
       },
-      body: JSON.stringify({ categories: selectedCategories, price: selectedPrice})
+      body: JSON.stringify({ categories: selectedCategories, price: selectedPrice })
     })
       .then(response => response.json())
       .then(data => {
