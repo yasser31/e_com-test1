@@ -29,7 +29,7 @@ def categories(request, category):
     category_products = Product.objects.filter(
         category__name=category).order_by('-created_date')
     context = {
-        'products': category_products
+        'products': category_products,
     }
     return render(request, 'products/category.html', context)
 
@@ -203,7 +203,7 @@ def search(request):
     return render(request, "products/search.html", {"products": products})
 
 
-def filter_by_category(request):
+def filter_home(request):
     data = json.load(request)
     categories = data["categories"]
     price_type = data["price"]
@@ -234,4 +234,5 @@ def filter_by_category(request):
             product_images.append(image_dict)
         product_dict["images"] = product_images
         filtered_products.append(product_dict)
+    print(filtered_products)
     return JsonResponse({'products': filtered_products})

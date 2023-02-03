@@ -14,25 +14,118 @@
 <div class="layout_padding gallery_section">
   <div class="container">
     <div class="row" id="cards-row">
+      {% block filter %}
       <div class="col-md-3">
         <div class="card">
           <div class="card-header">
             <h5>Filter</h5>
           </div>
           <div class="card-body">
-            <form id="category-filter-form">
+            <form id="filter-form">
               {% csrf_token %}
               <h6>Catégorie</h6>
               <div class="form-check">
-                <input class="category-checkbox" type="checkbox" value="Automobiles" id="Automobiles">
-                <label class="form-check-label" for="Automobiles">
-                  Automobile
+                <input class="category-parent" type="checkbox" value="Vêtements" id="Vêtements">
+                <label class="form-check-label" for="Vêtements">
+                  Vêtements
+                </label>
+                <div class="form-check vêtements-child" hidden>
+                  <input class="category-checkbox" type="checkbox" value="Chaussures" id="Chaussures">
+                  <label class="form-check-label" for="Chaussures">
+                    Chaussures
+                  </label>
+                </div>
+                <div class="form-check vêtements-child" hidden>
+                  <input class="category-checkbox" type="checkbox" value="Vestes" id="Vestes">
+                  <label class="form-check-label" for="Vestes">
+                    Vestes
+                  </label>
+                </div>
+                <div class="form-check vêtements-child" hidden>
+                  <input class="category-checkbox" type="checkbox" value="Pantalons" id="Pantalons">
+                  <label class="form-check-label" for="Pantalons">
+                    Pantalons
+                  </label>
+                </div>
+                <div class="form-check vêtements-child" hidden>
+                  <input class="category-checkbox" type="checkbox" value="Chemises" id="Chemises">
+                  <label class="form-check-label" for="Chemises">
+                    Chemises
+                  </label>
+                </div>
+                <div class="form-check vêtements-child" hidden>
+                  <input class="category-checkbox" type="checkbox" value="Basket" id="Basket">
+                  <label class="form-check-label" for="Basket">
+                    Basket
+                  </label>
+                </div>
+                <div class="form-check vêtements-child" hidden>
+                  <input class="category-checkbox" type="checkbox" value="T-shirt" id="T-shirt">
+                  <label class="form-check-label" for="T-shirt">
+                    T-shirt
+                  </label>
+                </div>
+                <div class="form-check vêtements-child" hidden>
+                  <input class="category-checkbox" type="checkbox" value="Mentaux" id="Mentaux">
+                  <label class="form-check-label" for="Mentaux">
+                    Mentaux
+                  </label>
+                </div>
+              </div>
+              <div class="form-check">
+                <input class="category-parent" type="checkbox" value="Eléctronique" id="Eléctronique">
+                <label class="form-check-label" for="Eléctronique">
+                  Eléctronique
+                </label>
+                <div class="form-check eléctronique-child" hidden>
+                  <input class="category-checkbox" type="checkbox" value="Téléphones"
+                    id="Téléphones">
+                  <label class="form-check-label" for="Téléphones">
+                    Téléphones
+                  </label>
+                </div>
+                <div class="form-check eléctronique-child" hidden>
+                  <input class="category-checkbox" type="checkbox" value="Tablettes"
+                    id="Tablettes">
+                  <label class="form-check-label" for="Tablettes">
+                    Tablettes
+                  </label>
+                </div>
+              </div>
+              <div class="form-check">
+                <input class="category-checkbox" type="checkbox" value="Accessoires" id="Accessoires">
+                <label class="form-check-label" for="Accessoires">
+                  Accessoires
                 </label>
               </div>
               <div class="form-check">
-                <input class="category-checkbox" type="checkbox" value="Vêtements" id="Vêtements">
-                <label class="form-check-label" for="Vêtements">
-                  Vêtements
+                <input class="category-parent" type="checkbox" value="Automobiles" id="Automobiles">
+                <label class="form-check-label" for="Automobiles">
+                  Automobile
+                </label>
+                <div class="form-check automobiles-child" hidden>
+                  <input class="category-checkbox" type="checkbox" value="Voitures" id="Voitures">
+                  <label class="form-check-label" for="Voitures">
+                    Voitures
+                  </label>
+                </div>
+                  <div class="form-check automobiles-child" hidden>
+                    <input class="category-checkbox" type="checkbox" value="Moto" id="Moto">
+                    <label class="form-check-label" for="Moto">
+                      Moto
+                    </label>
+                </div>
+              </div>
+              <div class="form-check">
+                <input class="category-checkbox" type="checkbox" value="Cosmétiques" id="Cosmétiques">
+                <label class="form-check-label" for="Cosmétiques">
+                  Cosmétiques
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="category-checkbox" type="checkbox" value="Divers" id="Divers">
+                <label class="form-check-label" for="Divers">
+                  Divers
                 </label>
               </div>
               <h6>Price</h6>
@@ -52,6 +145,7 @@
             </form>
           </div>
         </div>
+        {% endblock %}
       </div>
       {% for product in products %}
       <div class="col-md-3 product-card">
@@ -88,8 +182,9 @@
 </div>
 <!-- New Arrivals section end -->
 <!-- contact section start -->
+{% block filter_script %}
 <script>
-  const form = document.getElementById("category-filter-form")
+  const form = document.getElementById("filter-form")
   form.addEventListener("submit", event => {
     event.preventDefault();
 
@@ -97,7 +192,7 @@
     const selectedCategories = Array.from(document.querySelectorAll(".category-checkbox:checked")).map(c => c.value);
     const selectedPrice = Array.from(document.querySelectorAll(".form-price-input:checked")).map(x => x.value);
     // Make a GET request to the backend view
-    fetch("products/filter_category", {
+    fetch("http://localhost:8000/products/filter_home", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -147,5 +242,30 @@
         }
       });
   })
+  const parentCategories = document.querySelectorAll(".category-parent");
+  parentCategories.forEach(element => {
+    console.log(parentCategories);
+    element.addEventListener("change", function () {
+      let valueToLower = this.value.toLowerCase();
+      let childCategory = document.querySelectorAll(`.${valueToLower}-child`);
+      if (this.checked ) {
+        childCategory.forEach(e => {
+          e.hidden = false;
+        }
+
+        )
+      }
+      else (
+        childCategory.forEach(
+          e => {
+            e.checked = false;
+            e.hidden = true;
+            
+          }
+        )
+      )
+    })
+  })
 </script>
+{% endblock %}
 {% endblock %}
