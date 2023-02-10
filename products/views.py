@@ -234,5 +234,4 @@ def filter_home(request):
             product_images.append(image_dict)
         product_dict["images"] = product_images
         filtered_products.append(product_dict)
-    print(filtered_products)
     return JsonResponse({'products': filtered_products})

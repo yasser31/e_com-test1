@@ -6,7 +6,7 @@ from django.forms import inlineformset_factory
 class ProductForm(ModelForm):
     class Meta:
         model = Product
-        fields = ["name", "description", "contact", "price"]
+        fields = ["name", "description", "category", "contact", "price"]
 
 
 class ProductVariationForm(ModelForm):
