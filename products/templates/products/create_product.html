@@ -1,5 +1,6 @@
 {% extends 'products/base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% load i18n %}
 {% block content %}
 <div class="collection_section layout_padding">
@@ -40,4 +41,7 @@
     </div>
     <input type="submit" class="btn btn-primary" value="Créer">
 </form>
+<script src="{% static 'products/js/default_image.js' %}">
+  
+  </script>
 {% endblock %}
