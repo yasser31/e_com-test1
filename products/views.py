@@ -198,7 +198,7 @@ def search(request):
         )
         if not products:
             messages.warning(request,
-                "Aucun produit ne correspond à votre recherche veuiller vérifier votre orthographe")
+                "Aucun produit ne correspond à votre recherche veuillez vérifier votre orthographe")
             products = Product.objects.all()
     return render(request, "products/search.html", {"products": products})
 
