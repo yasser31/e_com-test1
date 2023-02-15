@@ -3,20 +3,15 @@
 {% block content %}
 <!-- home.html -->
 <!-- header section end -->
-<!-- new collection section start -->
-<div class="collection_section layout_padding">
-  {% for message in messages %}
-  <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-  {% endfor %}
-</div>
+<!-- message section start -->
+
 <!-- filter section -->
 {% block filter %}
-<button class="filter-toggle show-hide-button">Montrer/Cacher Filtre</button>
 <div class="filter-form-container">
-  <h2>Filtrer</h2>
+  <h2 class="filter-headers">Filtrer</h2>
   <form id="filter-form">
     {% csrf_token %}
-    <h3>Catégorie</h3>
+    <h3 class="filter-headers">Catégorie</h3>
     <div class="form-check">
       <input class="category-parent" type="checkbox" value="Vêtements" id="Vêtements">
       <label class="form-check-label" for="Vêtements">
@@ -119,7 +114,7 @@
         Divers
       </label>
     </div>
-    <h3>Price</h3>
+    <h3 class="filter-headers">Price</h3>
     <div class="form-check">
       <input class="form-price-input" type="radio" value="increasing" id="increasing" name="optradio">
       <label class="form-check-label" for="increasing">
@@ -136,8 +131,8 @@
   </form>
 </div>
 {% endblock %}
-<!-- New Arrivals section start -->
-<div class="layout_padding gallery_section">
+<!-- cards section start -->
+<div class="layout_padding gallery_section" id="cards-flex-item">
   <div class="container">
     <div class="row" id="cards-row">
       {% for product in products %}
@@ -173,7 +168,7 @@
     </div>
   </div>
 </div>
-<!-- New Arrivals section end -->
+<!-- cards section end -->
 <!-- contact section start -->
 {% block filter_script %}
 <script>

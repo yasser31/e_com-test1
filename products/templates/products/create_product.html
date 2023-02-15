@@ -3,11 +3,6 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-<div class="collection_section layout_padding">
-{% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-{% endfor %}
-</div>
 <h1 id="h1-create-product">Créer un produit </h1>
 <form method="post" enctype="multipart/form-data" action="{% url 'products:create_product' %}">
     {% csrf_token %}

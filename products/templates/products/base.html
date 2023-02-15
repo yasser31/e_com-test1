@@ -2,6 +2,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <!-- basic -->
   <meta charset="utf-8">
@@ -37,192 +38,205 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
 <!-- body -->
+
 <body class="main-layout">
   <div class="container" id="main-container">
-  <!-- header section start -->
-  <div class="header_section">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-3">
-          <div class="logo"><a href="{% url 'products:home' %}"><img id="logo" src="{% static 'products/img/yasser_logo1.jpg' %}"></a>
-            <h1 id="logo-title">Swift Sell</h1>
-            <h4 id="logo-slogan"> Tout ce passe Ici <i id="hand-icon" class="fa fa-handshake-o" style="font-size:24px"></i></h4>
-          </div>
-        </div>
-        <div class="col-sm-9">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                <a class="nav-item nav-link dropdown-toggle">Catégories</a>
-                <ul class="dropdown-menu">
-                  <li class="dropdown-item">
-                    <a href="{% url 'products:categories' 'Vêtements' %}">Vêtements</a>
-                    <ul class="child-menu hide">
-                      <li class="child-item"><a href="{% url 'products:categories' 'Chaussures' %}">Chaussures</a></li>
-                      <li class="child-item"><a href="{% url 'products:categories' 'Vestes' %}">Veste</a></li>
-                      <li class="child-item"><a href="{% url 'products:categories' 'Pantalons' %}">Pantalons</a></li>
-                      <li class="child-item"><a href="{% url 'products:categories' 'Chemises' %}">Chemises</a></li>
-                      <li class="child-item"><a href="{% url 'products:categories' 'Basket' %}">Basket</a></li>
-                      <li class="child-item"><a href="{% url 'products:categories' 'T-shirt' %}">T-shirt</a></li>
-                      <li class="child-item"><a href="{% url 'products:categories' 'Mentaux' %}">Mentaux</a></li>
-
-                    </ul>
-                  </li>
-                  <li class="dropdown-item">
-                    <a href="#">Eléctronique</a>
-                    <ul class="child-menu">
-                      <li class="child-item"><a href="{% url 'products:categories' 'Téléphones' %}">Téléphones</a></li>
-                    </ul>
-                    <ul class="child-menu">
-                      <li class="child-item"><a href="{% url 'products:categories' 'Tablettes' %}">Tablettes</a></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown-item">
-                    <a href="{% url 'products:categories' 'Accessoires' %}">Accessoires</a>
-                  </li>
-                  <li class="dropdown-item">
-                    <a href="{% url 'products:categories' 'Automobiles' %}">Automobiles</a>
-                    <ul class="child-menu">
-                      <li class="child-item"><a href="{% url 'products:categories' 'Voitures' %}">Voitures</a></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown-item">
-                    <a href="{% url 'products:categories' 'Cosmétiques' %}">Cosmétiques</a>
-                  </li>
-                  <li class="dropdown-item">
-                    <a href="{% url 'products:categories' 'Autres' %}">Divers</a>
-                  </li>
-                </ul>
-
-                <a class="nav-item nav-link" href="{% url 'products:home' %}">Accueil</a>
-                {% if user.is_authenticated %}
-                <a class="nav-item nav-link" href="{% url 'products:user_products' %}">Vos Produits</a>
-                <a class="nav-item nav-link" href="{% url 'accounts:logout' %}" title="se déconnecter"><i class="fa fa-sign-out"></i></a>
-
-                {% else %}
-                <a class="nav-item nav-link" href="{% url 'accounts:register' %}">S'inscrire</a>
-                <a class="nav-item nav-link" href="{% url 'accounts:login' %}" title="se connecter"><i class="fa fa-sign-in"></i></a>
-                
-                {% endif %}
-                <a class="nav-item nav-link" href="{% url 'products:create_product' %}" title="créer un produit"><i class="fa fa-plus"></i></a>
-                <form method="get" action="{% url 'products:search' %}"><input id="search-input" name="q"><button id="search-button" aria-hidden="true" type="submit"><i class="fa fa-search" ></i></button></form>
-              </div>
+    <!-- header section start -->
+    <div class="header_section">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="logo"><a href="{% url 'products:home' %}"><img id="logo"
+                  src="{% static 'products/img/Swift Sell.png' %}"></a>
+              <h1 id="logo-title">Swift Sell</h1>
+              <h4 id="logo-slogan"> Tout ce passe Ici <i id="hand-icon" class="fa fa-handshake-o"
+                  style="font-size:24px"></i></h4>
             </div>
+          </div>
+          <div class="col-sm-9">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-item nav-link dropdown-toggle">Catégories</a>
+                  <ul class="dropdown-menu">
+                    <li class="dropdown-item">
+                      <a href="{% url 'products:categories' 'Vêtements' %}">Vêtements</a>
+                      <ul class="child-menu hide">
+                        <li class="child-item"><a href="{% url 'products:categories' 'Chaussures' %}">Chaussures</a>
+                        </li>
+                        <li class="child-item"><a href="{% url 'products:categories' 'Vestes' %}">Veste</a></li>
+                        <li class="child-item"><a href="{% url 'products:categories' 'Pantalons' %}">Pantalons</a></li>
+                        <li class="child-item"><a href="{% url 'products:categories' 'Chemises' %}">Chemises</a></li>
+                        <li class="child-item"><a href="{% url 'products:categories' 'Basket' %}">Basket</a></li>
+                        <li class="child-item"><a href="{% url 'products:categories' 'T-shirt' %}">T-shirt</a></li>
+                        <li class="child-item"><a href="{% url 'products:categories' 'Mentaux' %}">Mentaux</a></li>
+
+                      </ul>
+                    </li>
+                    <li class="dropdown-item">
+                      <a href="#">Eléctronique</a>
+                      <ul class="child-menu">
+                        <li class="child-item"><a href="{% url 'products:categories' 'Téléphones' %}">Téléphones</a>
+                        </li>
+                      </ul>
+                      <ul class="child-menu">
+                        <li class="child-item"><a href="{% url 'products:categories' 'Tablettes' %}">Tablettes</a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown-item">
+                      <a href="{% url 'products:categories' 'Accessoires' %}">Accessoires</a>
+                    </li>
+                    <li class="dropdown-item">
+                      <a href="{% url 'products:categories' 'Automobiles' %}">Automobiles</a>
+                      <ul class="child-menu">
+                        <li class="child-item"><a href="{% url 'products:categories' 'Voitures' %}">Voitures</a></li>
+                      </ul>
+                    </li>
+                    <li class="dropdown-item">
+                      <a href="{% url 'products:categories' 'Cosmétiques' %}">Cosmétiques</a>
+                    </li>
+                    <li class="dropdown-item">
+                      <a href="{% url 'products:categories' 'Autres' %}">Divers</a>
+                    </li>
+                  </ul>
+
+                  <a class="nav-item nav-link" href="{% url 'products:home' %}">Accueil</a>
+                  {% if user.is_authenticated %}
+                  <a class="nav-item nav-link" href="{% url 'products:user_products' %}">Vos Produits</a>
+                  <a class="nav-item nav-link" href="{% url 'accounts:logout' %}" title="se déconnecter"><i
+                      class="fa fa-sign-out"></i></a>
+
+                  {% else %}
+                  <a class="nav-item nav-link" href="{% url 'accounts:register' %}">S'inscrire</a>
+                  <a class="nav-item nav-link" href="{% url 'accounts:login' %}" title="se connecter"><i
+                      class="fa fa-sign-in"></i></a>
+
+                  {% endif %}
+                  <a class="nav-item nav-link" href="{% url 'products:create_product' %}" title="créer un produit"><i
+                      class="fa fa-plus"></i></a>
+                  <form method="get" action="{% url 'products:search' %}"><input id="search-input" name="q"><button
+                      id="search-button" aria-hidden="true" type="submit"><i class="fa fa-search"></i></button></form>
+                </div>
+              </div>
+            </nav>
+            <hr>
+          </div>
           </nav>
-          <hr>
         </div>
-        </nav>
       </div>
     </div>
-  </div>
-  </div>
-  <div class="layout_padding">
-    <div class="container">
+    <div class="collection_section layout_padding">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    <div class="container" id="content-section">
       {% block content %}
-      {% block filter %}{% endblock %}
       {% endblock %}
       {% block register %}{% endblock %}
     </div>
-  </div>
-  <!-- contact section end -->
-  <!-- section footer start -->
-  <div class="section_footer">
-    <div class="container">
-      <div class="mail_section">
-        <div class="row">
-          <div class="col-sm-6 col-lg-4">
-            <div class="footer-logo"><img src="{% static 'products/img/phone-icon.png' %}"><span class="map_text">(+213)
-                044656907</span></div>
-          </div>
-          <div class="col-sm-6 col-lg-4">
-            <div class="footer-logo"><img src="{% static 'products/img/email-icon.png' %}"><span
-                class="map_text">swiftsellalgerie@gmail.com</span></div>
-          </div>
-          <div class="col-sm-6 col-lg-4">
-            <div class="social_icon">
-              <ul>
-                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a</a></li>
-                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a</li>
-                <li><a href="#"><i class="fa fa-google" aria-hidden="true"></i></a</a></li>
-              </ul>
+    <!-- contact section end -->
+    <!-- section footer start -->
+    <div class="section_footer">
+      <div class="container">
+        <div class="mail_section">
+          <div class="row">
+            <div class="col-sm-6 col-lg-4">
+              <div class="footer-logo"><img src="{% static 'products/img/phone-icon.png' %}"><span
+                  class="map_text">(+213)
+                  044656907</span></div>
             </div>
+            <div class="col-sm-6 col-lg-4">
+              <div class="footer-logo"><img src="{% static 'products/img/email-icon.png' %}"><span
+                  class="map_text">swiftsellalgerie@gmail.com</span></div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <div class="social_icon">
+                <ul>
+                  <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                  <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a< /a>
+                  </li>
+                  <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a< /li>
+                  <li><a href="#"><i class="fa fa-google" aria-hidden="true"></i></a< /a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-2"></div>
           </div>
-          <div class="col-sm-2"></div>
         </div>
       </div>
     </div>
+    <!-- section footer end -->
+    <div class="copyright">2023 All Rights Reserved. <a href="#">Swift Sell Algérie</a></div>
+
+
+    <!-- Javascript files-->
+    <script src="{% static 'products/js/jquery.min.js' %}"></script>
+    <script src="{% static 'products/js/popper.min.js' %}"></script>
+    <script src="{% static 'products/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'products/js/jquery-3.0.0.min.js' %}"></script>
+    <script src="{% static 'products/js/plugin.js' %}"></script>
+    <!-- sidebar -->
+    <script src="{% static 'products/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <script src="{% static 'products/js/custom.js '%}"></script>
+    <!-- javascript -->
+    <script src=" {% static 'products/js/owl.carousel.js' %}"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".fancybox").fancybox({
+          openEffect: "none",
+          closeEffect: "none"
+        });
+
+
+        $('#myCarousel').carousel({
+          interval: false
+        });
+
+        //scroll slides on swipe for touch enabled devices
+
+        $("#myCarousel").on("touchstart", function (event) {
+
+          var yClick = event.originalEvent.touches[0].pageY;
+          $(this).one("touchmove", function (event) {
+
+            var yMove = event.originalEvent.touches[0].pageY;
+            if (Math.floor(yClick - yMove) > 1) {
+              $(".carousel").carousel('next');
+            }
+            else if (Math.floor(yClick - yMove) < -1) {
+              $(".carousel").carousel('prev');
+            }
+          });
+          $(".carousel").on("touchend", function () {
+            $(this).off("touchmove");
+          });
+        });
+      })
+    </script>
+    <script>
+      document.querySelector('.dropdown-toggle').addEventListener('click', function () {
+        document.querySelector('.dropdown-menu').classList.toggle('show');
+      });
+      document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('mouseover', function () {
+          this.querySelector('.child-menu').style.display = 'block';
+        });
+        item.addEventListener('mouseout', function () {
+          this.querySelector('.child-menu').style.display = 'none';
+        });
+      });
+
+    </script>
+    {% block extra_script %}
+    {% endblock %}
   </div>
-  <!-- section footer end -->
-  <div class="copyright">2023 All Rights Reserved. <a href="#">Swift Sell Algérie</a></div>
-
-
-  <!-- Javascript files-->
-  <script src="{% static 'products/js/jquery.min.js' %}"></script>
-  <script src="{% static 'products/js/popper.min.js' %}"></script>
-  <script src="{% static 'products/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'products/js/jquery-3.0.0.min.js' %}"></script>
-  <script src="{% static 'products/js/plugin.js' %}"></script>
-  <!-- sidebar -->
-  <script src="{% static 'products/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
-  <script src="{% static 'products/js/custom.js '%}"></script>
-  <!-- javascript -->
-  <script src=" {% static 'products/js/owl.carousel.js' %}"></script>
-  <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      $(".fancybox").fancybox({
-        openEffect: "none",
-        closeEffect: "none"
-      });
-
-
-      $('#myCarousel').carousel({
-        interval: false
-      });
-
-      //scroll slides on swipe for touch enabled devices
-
-      $("#myCarousel").on("touchstart", function (event) {
-
-        var yClick = event.originalEvent.touches[0].pageY;
-        $(this).one("touchmove", function (event) {
-
-          var yMove = event.originalEvent.touches[0].pageY;
-          if (Math.floor(yClick - yMove) > 1) {
-            $(".carousel").carousel('next');
-          }
-          else if (Math.floor(yClick - yMove) < -1) {
-            $(".carousel").carousel('prev');
-          }
-        });
-        $(".carousel").on("touchend", function () {
-          $(this).off("touchmove");
-        });
-      });
-    })
-  </script>
-  <script>
-    document.querySelector('.dropdown-toggle').addEventListener('click', function () {
-      document.querySelector('.dropdown-menu').classList.toggle('show');
-    });
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-      item.addEventListener('mouseover', function () {
-        this.querySelector('.child-menu').style.display = 'block';
-      });
-      item.addEventListener('mouseout', function(){
-        this.querySelector('.child-menu').style.display = 'none';
-    });
-    });
-
-  </script>
-  {% block extra_script %}
-  {% endblock %}
-</div>
 </body>
 
 </html>
