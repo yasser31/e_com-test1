@@ -1,10 +1,10 @@
 {% extends './base.html' %}
 
 {% block content %}
-    <h2>Êtes-vous sûr de vouloir supprimer cet image " {{ object.name }}"?</h2>
     <form method="post">
+        <h2>Êtes-vous sûr de vouloir supprimer cet image?</h2>
         {% csrf_token %}
-        <input type="submit" value="Confirmer">
-        <a href="{% url 'products:view_product' object.product.id %}">Annuler</a>
+        <input type="submit" value="Confirmer" class="btn btn-danger">
+        <a href="{% url 'products:view_product' object.product.id %}" class="btn btn-success">Annuler</a>
     </form>
 {% endblock %}

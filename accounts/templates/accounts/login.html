@@ -2,22 +2,21 @@
 {% load account %}
 {% load socialaccount %}
 {% block content %}
-{% get_providers as socialaccount_providers %} 
-{% if socialaccount_providers %}
-{{ auth_error }}
-<a href="{% provider_login_url 'google' %}" class="btn btn-danger">
-    <i class="fa fa-google"></i>  Se Connecter avec Google
-</a>
-<a href="{% provider_login_url 'facebook' %}" class="btn btn-primary">
-    <i class="fa fa-facebook"></i> Se connecter avec Facebook
-</a>
-{% endif %}
-
-<h1 id="login-h1">Se connecter</h1>
+{% get_providers as socialaccount_providers %}
 {% if error %}
 <div class="alert alert-warning">{{ error }}</div>
 {% endif %}
 <form method="post" action="{% url 'accounts:login' %}">
+    {% if socialaccount_providers %}
+    {{ auth_error }}
+    <a href="{% provider_login_url 'google' %}" class="btn btn-danger">
+        <i class="fa fa-google"></i> Se Connecter avec Google
+    </a>
+    <a href="{% provider_login_url 'facebook' %}" class="btn btn-primary">
+        <i class="fa fa-facebook"></i> Se connecter avec Facebook
+    </a>
+    {% endif %}
+    <h1 id="login-h1">Se connecter</h1>
     {% csrf_token %}
     <div class="form-group">
         <label for="username">Nom d'utilisateur:</label>

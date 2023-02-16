@@ -118,7 +118,7 @@
                   {% endif %}
                   <a class="nav-item nav-link" href="{% url 'products:create_product' %}" title="créer un produit"><i
                       class="fa fa-plus"></i></a>
-                  <form method="get" action="{% url 'products:search' %}"><input id="search-input" name="q"><button
+                  <form method="get" action="{% url 'products:search' %}" id="search-form"><input id="search-input" name="q"><button
                       id="search-button" aria-hidden="true" type="submit"><i class="fa fa-search"></i></button></form>
                 </div>
               </div>
@@ -139,6 +139,8 @@
       {% endblock %}
       {% block register %}{% endblock %}
     </div>
+    {% block product %}
+    {% endblock %}
     <!-- contact section end -->
     <!-- section footer start -->
     <div class="section_footer">

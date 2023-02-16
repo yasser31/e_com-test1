@@ -590,7 +590,7 @@ body {
     text-align: center;
     font-weight: bold;
     font-size: 40px;
-    background-color: #db5660;
+    background-color: black;
     padding: 30px 0px;
 }
 
@@ -869,7 +869,7 @@ a:hover {
     color: #ffffff;
     text-align: center;
     padding: 10px 0px;
-    background-color: #ff4e5b;
+    background-color: black;
     font-family: Poppins;
 }
 
@@ -923,8 +923,10 @@ a:hover {
     background: #0c0116;
 }
 
-#product_description {
-    margin-left: 0px;
+#product_description,
+#description-text {
+    margin: auto;
+    margin-left: 20px;
 }
 
 #create_form {
@@ -1045,7 +1047,7 @@ a:hover {
 .card-heading {
     text-align: center;
     font-size: 18px;
-    color: #ccc;
+    color: orange;
     font-weight: bold;
     margin: 10px 0;
     max-width: 100%;
@@ -1057,7 +1059,7 @@ a:hover {
     text-align: center;
     font-weight: bold;
     font-size: 16px;
-    color: #ccc;
+    color: black;
     margin: 10px 0;
     max-width: 100%;
     max-height: 100%;
@@ -1068,7 +1070,7 @@ a:hover {
     justify-content: center;
     padding: 10px 0;
     width: 100%;
-    color: #fff;
+    color: black;
     border-radius: 0 0 8px 8px;
 }
 
@@ -1135,7 +1137,7 @@ a:hover {
 }
 
 #h1-create-product {
-    margin-top: 20%;
+    margin-top: 1%;
     margin-left: 0%;
 }
 
@@ -1158,10 +1160,6 @@ a:hover {
     max-width: 100%;
 }
 
-#product_description,
-#decription-text {
-    margin-left: -32px;
-}
 
 #home-page-title {
     margin-left: 0px;
@@ -1180,6 +1178,7 @@ a:hover {
 .product-images {
     max-height: 100% !important;
     max-width: 100% !important;
+    margin: auto;
 }
 
 #delete-image {
@@ -1243,24 +1242,46 @@ a:hover {
 }
 
 .filter-button {
-    font-family: monospace;
-    font-size: 1 rem;
-    color: #FAFAFA;
-    text-transform: uppercase;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: 2px solid #FAFAFA;
-    background: #252525;
-    box-shadow: 3px 3px #fafafa;
-    cursor: pointer;
-    margin: 35px 0;
+  background: #fff;
+  border: none;
+  padding: 10px 20px;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  width: 120px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: skew(-21deg);
+  margin: 5px;
+  margin-top: 10px;
   }
 
-  .filter-button:active {
-    box-shadow: none;
-    transform: translate(3px, 3px);
+  .filter-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  left: 0;
+  background: rgb(20, 20, 20);
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.5s;
   }
 
+  .filter-button:hover {
+    color: #fff;
+  }
+  
+  .filter-button:hover::before {
+    left: 0;
+    right: 0;
+    opacity: 1;
+  }
+  #filter-span {
+    display: inline-block;
+    transform: skew(21deg);
+  }
   .show-hide-button {
     --green: #1BFD9C;
     font-size: 15px;
@@ -1318,4 +1339,14 @@ a:hover {
    }
    .form-check-label{
     color: white !important;
+   }
+
+   form {
+    margin:auto;
+   }
+   #search-form{
+    margin: 0px;
+   }
+   #product-images-row{
+    margin: auto;
    }

@@ -3,13 +3,13 @@
 {% extends "products/base.html" %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'products/css/product.css' %}">
-{% block content %}
+{% block product %}
 <div class="collection_text"> <strong>{{ product.name }}</strong></div>
 <p class="sport_text"> Contact:{{ product.contact }}</p>
 <div class="layout_padding collection_section">
   <div class="container">
     <h1 class="new_text" id="product_description"><strong>Description</strong></h1>
-    <p class="consectetur_text" id="decription-text">{{ product.description }}</p>
+    <p class="consectetur_text" id="description-text">{{ product.description }}</p>
   </div>
 </div>
 <div class="collection_section_2">
@@ -31,7 +31,7 @@
       <div class="dolar_text">DA <strong style="color: #f12a47;">{{ product.price }}</strong> </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" id="product-images-row">
     {% for image in product.product_images.all %}
     {% if not image.default %}
     <div classs="col-md-4">

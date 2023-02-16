@@ -3,8 +3,8 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
-<h1 id="h1-create-product">Créer un produit </h1>
 <form method="post" enctype="multipart/form-data" action="{% url 'products:create_product' %}">
+  <h1 id="h1-create-product">Créer un produit </h1>
     {% csrf_token %}
     <div class="form-row">
         <div class="form-group col-md-3 mb-0">

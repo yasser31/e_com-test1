@@ -3,8 +3,8 @@
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% block content %}
-<h1 id="h1-create-product">Modifier un produit </h1>
 <form method="post" enctype="multipart/form-data">
+  <h1 id="h1-create-product">Modifier un produit </h1>
     {% csrf_token %}
     <div class="form-row">
         <div class="form-group col-md-4 mb-0">

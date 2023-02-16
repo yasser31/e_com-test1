@@ -1,21 +1,21 @@
 {% extends './home.html' %}
 {% block filter %}
 <div class="filter-form-container">
-  <h2>Filtrer</h2>
+  <h2 class="filter-headers">Filtrer</h2>
   <h3 id="category-h3"> {{ products.0.category }} </h3>
   <form id="filter-form">
     {% csrf_token %}
-    <h3>Price</h3>
+    <h3 class="filter-headers">Price</h3>
     <div class="form-check">
       <input class="form-price-input" type="radio" value="increasing" id="increasing" name="optradio">
       <label class="form-check-label" for="increasing">
-        Increasing
+        Croissant
       </label>
     </div>
     <div class="form-check">
       <input class="form-price-input" type="radio" value="decreasing" id="decreasing" name="optradio">
       <label class="form-check-label" for="decreasing">
-        Decreasing
+        Décroissant
       </label>
     </div>
     <button class="filter-button" type="submit">Filter</button>
