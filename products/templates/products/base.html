@@ -67,12 +67,10 @@
                       </ul>
                     </li>
                     <li class="dropdown-item">
-                      <a href="#">Eléctronique</a>
-                      <ul class="child-menu">
+                      <a href="{% url 'products:categories' 'Eléctronique' %}">Eléctronique</a>
+                      <ul class="child-menu hide">
                         <li class="child-item"><a href="{% url 'products:categories' 'Téléphones' %}">Téléphones</a>
                         </li>
-                      </ul>
-                      <ul class="child-menu">
                         <li class="child-item"><a href="{% url 'products:categories' 'Tablettes' %}">Tablettes</a></li>
                       </ul>
                     </li>
@@ -81,7 +79,7 @@
                     </li>
                     <li class="dropdown-item">
                       <a href="{% url 'products:categories' 'Automobiles' %}">Automobiles</a>
-                      <ul class="child-menu">
+                      <ul class="child-menu hide">
                         <li class="child-item"><a href="{% url 'products:categories' 'Voitures' %}">Voitures</a></li>
                       </ul>
                     </li>
@@ -107,8 +105,9 @@
                   {% endif %}
                   <a class="nav-item nav-link" href="{% url 'products:create_product' %}" title="créer un produit"><i
                       class="fa fa-plus"></i></a>
-                  <form method="get" action="{% url 'products:search' %}" id="search-form"><input id="search-input" name="q"><button
-                      id="search-button" aria-hidden="true" type="submit"><i class="fa fa-search"></i></button></form>
+                  <form method="get" action="{% url 'products:search' %}" id="search-form"><input id="search-input"
+                      name="q"><button id="search-button" aria-hidden="true" type="submit"><i
+                        class="fa fa-search"></i></button></form>
                 </div>
               </div>
             </nav>

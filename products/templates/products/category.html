@@ -3,7 +3,7 @@
 {% block filter %}
 <div class="filter-form-container">
   <h2 class="filter-headers">Filtrer</h2>
-  <h3 id="category-h3"> {{ products.0.category }} </h3>
+  <h3 id="category-h3" class="filter-headers"> {{ products.0.category }} </h3>
   <form id="filter-form">
     {% csrf_token %}
     <h3 class="filter-headers">Price</h3>
