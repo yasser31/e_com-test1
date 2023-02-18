@@ -1,4 +1,6 @@
 export function replaceProducts(data) {
+    let contextMessages = document.querySelector('.message-section');
+    contextMessages.innerHTML="";
     const cards = document.querySelectorAll('.product-card');
     cards.forEach(card => card.remove());
     const productContainer = document.getElementById('cards-row');
@@ -7,7 +9,7 @@ export function replaceProducts(data) {
         const message = document.createElement("p");
         message.classList.add("filter-message");
         message.classList.add("btn-danger");
-        const messageTextNode = document.createTextNode("Aucun produit ne correspond à votre recherche veuillez vérifier votre orthographe ou tapez un autre mot-clef du produit");
+        const messageTextNode = document.createTextNode("Aucun produit ne correspond à votre recherche/filtre");
         message.appendChild(messageTextNode);
         productContainer.appendChild(message);
     }

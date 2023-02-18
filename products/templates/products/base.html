@@ -117,9 +117,9 @@
         </div>
       </div>
     </div>
-    <div class="collection_section layout_padding">
+    <div class="collection_section layout_padding message-section">
       {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      <div class="alert alert-{{ message.tags }} text-center m-auto">{{ message }}</div>
       {% endfor %}
     </div>
     <div class="container" id="content-section">
@@ -164,6 +164,7 @@
     <!-- section footer end -->
     <div class="copyright">2023 All Rights Reserved. <a href="#">Swift Sell Algérie</a></div>
     <script src="{% static 'products/js/category_dropdown.js' %}"></script>
+    <script src="{% static 'products/js/search.js' %}" type="module"></script>
     {% block extra_script %}
     {% endblock %}
   </div>

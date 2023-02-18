@@ -21,6 +21,9 @@ def home(request):
     products = Product.objects.all()
     categories = Category.objects.all()
     context = {'products': products, 'categories': categories}
+    if not products:
+        messages.warning(
+            request, "Aucun produit pour le moment, vous pouvez en ajouter un produit en haut à droite")
     return render(request, 'products/home.html', context)
 
 
@@ -30,6 +33,9 @@ def categories(request, category):
     context = {
         'products': category_products,
     }
+    if not category_products:
+        messages.warning(
+            request, "Aucun produit dans cette catégorie pour le moment, vous pouvez en ajouter un produit en haut à droite")
     return render(request, 'products/category.html', context)
 
 
