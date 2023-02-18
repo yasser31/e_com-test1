@@ -13,9 +13,8 @@ from haystack import signals, connections
 from django.db.models import Q
 from django.db.models import F
 from django.http import JsonResponse
+from .functions import products_to_dict
 import json
-from django.forms.models import model_to_dict
-
 
 
 def home(request):
@@ -188,19 +187,14 @@ class ImageDeleteView(DeleteView):
         return redirect(self.get_success_url())
 
 
-def search(request):
-    query = request.GET.get("q")
-    if query:
-        products = Product.objects.filter(
-            Q(name__icontains=query) |
-            Q(category__name__icontains=query) |
-            Q(description__icontains=query)
-        )
-        if not products:
-            messages.warning(request,
-                "Aucun produit ne correspond à votre recherche veuillez vérifier votre orthographe")
-            products = Product.objects.all()
-    return render(request, "products/search.html", {"products": products})
+def search(request, query):
+    products = Product.objects.filter(
+        Q(name__icontains=query) |
+        Q(category__name__icontains=query) |
+        Q(description__icontains=query)
+    )
+    filtered_products = products_to_dict(products)
+    return JsonResponse({'products': filtered_products})
 
 
 def filter_home(request):
@@ -208,11 +202,13 @@ def filter_home(request):
     categories = data["categories"]
     price_type = data["price"]
     products = None
-    if categories and  price_type:
+    if categories and price_type:
         if price_type[0] == "increasing":
-            products = Product.objects.filter(category__name__in=categories).order_by("price")
+            products = Product.objects.filter(
+                category__name__in=categories).order_by("price")
         elif price_type[0] == "decreasing":
-            products = Product.objects.filter(category__name__in=categories).order_by("-price")
+            products = Product.objects.filter(
+                category__name__in=categories).order_by("-price")
     elif price_type and not categories:
         if price_type[0] == "increasing":
             products = Product.objects.all().order_by("price")
@@ -223,15 +219,5 @@ def filter_home(request):
     else:
         products = Product.objects.all()
 
-    filtered_products = []
-    for product in products:
-        product_images = []
-        product_dict = model_to_dict(product)
-        for image in product.product_images.all():
-            image_dict = {}
-            image_dict["url"] = image.image.url
-            image_dict["default"] = image.default
-            product_images.append(image_dict)
-        product_dict["images"] = product_images
-        filtered_products.append(product_dict)
+    filtered_products = products_to_dict(products)
     return JsonResponse({'products': filtered_products})

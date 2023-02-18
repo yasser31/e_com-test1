@@ -4,7 +4,6 @@
 <!-- home.html -->
 <!-- header section end -->
 <!-- message section start -->
-
 <!-- filter section -->
 {% block filter %}
 <div class="filter-form-container">
@@ -171,6 +170,7 @@
 <!-- cards section end -->
 <!-- contact section start -->
 {% block filter_script %}
-<script src="{% static 'products/js/home_page_filter.js' %}"></script>
+<script src="{% static 'products/js/home_page_filter.js' %}" type="module"></script>
+<script src="{% static 'products/js/search.js' %}" type="module"></script>
 {% endblock %}
 {% endblock %}
