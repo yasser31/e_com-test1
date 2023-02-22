@@ -1108,7 +1108,8 @@ a:hover {
 }
 
 #registration-h1,
-#login-h1 {
+#login-h1,
+.social-login-h1{
     margin-left: 0%;
 }
 

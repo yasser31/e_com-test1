@@ -6,10 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, DeleteView
-from haystack.query import SearchQuerySet
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from haystack import signals, connections
 from django.db.models import Q
 from django.db.models import F
 from django.http import JsonResponse
@@ -23,7 +21,7 @@ def home(request):
     context = {'products': products, 'categories': categories}
     if not products:
         messages.warning(
-            request, "Aucun produit pour le moment, vous pouvez en ajouter un produit en haut à droite")
+            request, "Aucun produit pour le moment, vous pouvez en ajouter en haut à droite")
     return render(request, 'products/home.html', context)
 
 
