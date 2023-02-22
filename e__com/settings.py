@@ -29,7 +29,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1:8000", "46.101.6.122/"]
+ALLOWED_HOSTS = ["127.0.0.1:8000", "46.101.6.122"]
 
 
 # Application definition
@@ -196,11 +196,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    "products/static",
-    "cart/static"
-]
-STATIC_ROOT = BASE_DIR  /"staticfiles"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media/"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
