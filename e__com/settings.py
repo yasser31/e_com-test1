@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from decouple import config
+import dj_database_url
 from pathlib import Path
 import os
 
@@ -28,7 +29,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ["127.0.0.1:8000"]
 
 
 # Application definition
@@ -213,3 +214,16 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 SITE_ID = 1
 LOGIN_REDIRECT_URL = "products:home"
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS =True
+
+if os.environ.get("ENV") == "PRODUCTION":
+    # static files settings
+    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+    STATIC_ROOT = os.path.join(PROJECT_ROOT, "staticfiles")
+    # where to find staticfiles
+    STATICFILES_DIRS = [
+    os.path.join(PROJECT_ROOT, "static")
+    "products/static",
+    "cart/static"
+] 
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
