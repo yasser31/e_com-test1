@@ -221,7 +221,7 @@ if os.environ.get("ENV") == "PRODUCTION":
     STATIC_ROOT = os.path.join(PROJECT_ROOT, "staticfiles")
     # where to find staticfiles
     STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, "static")
+    os.path.join(PROJECT_ROOT, "static"),
     "products/static",
     "cart/static"
 ] 
