@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
-from . import settings
+import settings
 from django.conf.urls import handler404, handler500
 
 handler404 = 'e__com.views.error_404'

@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from cart.models import Cart
 from django.http import HttpResponse
-from e__com.settings import EMAIL_HOST_USER
+from settings import EMAIL_HOST_USER
 from django.db import transaction
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.models import User

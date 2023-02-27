@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from e__com import settings
+import settings
 from django.conf.urls.static import static
 
 
