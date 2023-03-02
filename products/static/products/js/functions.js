@@ -50,8 +50,6 @@ export function replaceProducts(data) {
 }
 
 export function fetchData(url, dataObj) {
-    var csrf = document.querySelector("input[name=csrfmiddlewaretoken]").value
-    console.log(csrf)
     return fetch(url, {
         credentials: 'include',
         method: "POST",
