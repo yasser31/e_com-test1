@@ -51,6 +51,8 @@ export function replaceProducts(data) {
 
 export function fetchData(url, dataObj) {
     return fetch(url, {
+        credentials: 'include',
+        mode: 'same-origin',
         method: "POST",
         headers: {
             "Content-Type": "application/json",
