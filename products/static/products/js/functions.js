@@ -54,7 +54,6 @@ export function fetchData(url, dataObj) {
     console.log(csrf)
     return fetch(url, {
         credentials: 'include',
-        mode: 'same-origin',
         method: "POST",
         headers: {
             "Content-Type": "application/json",
