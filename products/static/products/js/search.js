@@ -6,7 +6,7 @@ searchForm.addEventListener("submit", function (e) {
     let inputElement = document.getElementById("search-input");
     let Q = inputElement.value;
     if (Q.length > 0) {
-        let url = `http://localhost:8000/search/${Q}`;
+        let url = `https://nchoof.com/search/${Q}`;
         getData(url).then(data => {
             replaceProducts(data);
         })

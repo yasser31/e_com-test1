@@ -9,7 +9,7 @@ form.addEventListener("submit", event => {
     const selectedCategories = Array.from(document.querySelectorAll(".category-checkbox:checked")).map(c => c.value);
     const selectedPrice = Array.from(document.querySelectorAll(".form-price-input:checked")).map(x => x.value);
     let dataToSend = { categories: selectedCategories, price: selectedPrice };
-    let url = "http://localhost:8000/products/filter_home";
+    let url = "https://nchoof.com/products/filter_home";
     // Make a POST request to the backend view
     fetchData(url, dataToSend).then(data => {
         // Handle the response data and update the product display
