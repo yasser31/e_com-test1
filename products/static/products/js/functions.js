@@ -1,6 +1,6 @@
 export function replaceProducts(data) {
     let contextMessages = document.querySelector('.message-section');
-    contextMessages.innerHTML="";
+    contextMessages.innerHTML = "";
     const cards = document.querySelectorAll('.product-card');
     cards.forEach(card => card.remove());
     const productContainer = document.getElementById('cards-row');
@@ -50,6 +50,8 @@ export function replaceProducts(data) {
 }
 
 export function fetchData(url, dataObj) {
+    var csrf = document.querySelector("input[name=csrfmiddlewaretoken]").value
+    console.log(csrf)
     return fetch(url, {
         credentials: 'include',
         mode: 'same-origin',
