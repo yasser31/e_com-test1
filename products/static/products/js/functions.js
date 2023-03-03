@@ -66,11 +66,13 @@ function getCookie(name) {
 }
 
 export function fetchData(url, dataObj) {
-    dataObj.csrftoken = getCookie('csrftoken');
+    const csrftoken = getCookie('csrftoken');
+    console.log(csrftoken);
     return fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            'X-CSRFToken': csrftoken,
         },
         body: JSON.stringify(dataObj)
     })
