@@ -50,12 +50,13 @@ export function replaceProducts(data) {
 }
 
 export function fetchData(url, dataObj) {
+    const csrftoken = Cookies.get('csrftoken');
     return fetch(url, {
-        credentials: 'include',
+        mode : 'same-origin',
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            'X-CSRFToken': document.querySelector("input[name=csrfmiddlewaretoken]").value
+            'X-CSRFToken': csrftoken,
         },
         body: JSON.stringify(dataObj)
     })
