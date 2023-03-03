@@ -68,7 +68,6 @@ function getCookie(name) {
 export function fetchData(url, dataObj) {
     const csrftoken = getCookie('csrftoken');
     return fetch(url, {
-        mode : 'same-origin',
         method: "POST",
         headers: {
             "Content-Type": "application/json",
