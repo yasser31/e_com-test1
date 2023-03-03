@@ -71,7 +71,7 @@ export function fetchData(url, dataObj) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            'X-CSRFToken': csrftoken,
+            'X-CSRFToken': 'yes',
         },
         body: JSON.stringify(dataObj)
     })
