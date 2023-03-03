@@ -49,8 +49,24 @@ export function replaceProducts(data) {
     }
 }
 
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 export function fetchData(url, dataObj) {
-    const csrftoken = Cookies.get('csrftoken');
+    const csrftoken = getCookie('csrftoken');
     return fetch(url, {
         mode : 'same-origin',
         method: "POST",
