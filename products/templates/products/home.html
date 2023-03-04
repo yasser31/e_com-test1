@@ -8,7 +8,7 @@
 {% block filter %}
 <div class="filter-form-container">
   <h2 class="filter-headers">Filtrer</h2>
-  <form id="filter-form">
+  <form id="filter-form" method="post">
     {% csrf_token %}
     <h3 class="filter-headers">Catégorie</h3>
     <div class="form-check">
@@ -129,6 +129,7 @@
     <button type="submit" class="filter-button"><span id="filter-span">Filtrer</span></button>
   </form>
 </div>
+
 {% endblock %}
 <!-- cards section start -->
 <div class="layout_padding gallery_section" id="cards-flex-item">
