@@ -67,6 +67,7 @@ function getCookie(name) {
 
 export function fetchData(url, dataObj) {
     const csrftoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+    console.log(csrftoken)
     return fetch(url, {
         method: "POST",
         headers: {
