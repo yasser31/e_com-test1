@@ -70,6 +70,7 @@ export function fetchData(url, dataObj) {
     return fetch(url, {
         method: "POST",
         headers: {
+            "mode": "no-cors",
             "origin": "https://www.nchoof.com",
             "credentials" : "include",
             "Content-Type": "application/json",
