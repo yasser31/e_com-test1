@@ -70,7 +70,7 @@ export function fetchData(url, dataObj) {
     return fetch(url, {
         method: "POST",
         headers: {
-            "origin": "https://www.nchoof.com/products/filter_home",
+            "origin": "https://www.nchoof.com",
             "Content-Type": "application/json",
             'X-CSRFToken': csrftoken,
         },
