@@ -13,6 +13,7 @@ from django.db.models import F
 from django.http import JsonResponse
 from .functions import products_to_dict
 import json
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 def home(request):
@@ -201,6 +202,7 @@ def search(request, query):
     return JsonResponse({'products': filtered_products})
 
 
+@ensure_csrf_cookie
 def filter_home(request):
     data = json.load(request)
     categories = data["categories"]
