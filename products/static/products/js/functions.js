@@ -71,6 +71,7 @@ export function fetchData(url, dataObj) {
         method: "POST",
         headers: {
             "origin": "https://www.nchoof.com",
+            "credentials" : "includes",
             "Content-Type": "application/json",
             'X-CSRFToken': csrftoken,
         },
