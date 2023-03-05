@@ -66,16 +66,15 @@ function getCookie(name) {
 }
 
 export function fetchData(url, dataObj) {
-    const csrftoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+    const csrftoken = getCookie('csrftoken');
     return fetch(url, {
         method: "POST",
         headers: {
-            "mode": "no-cors",
             "origin": "https://www.nchoof.com",
-            "credentials" : "include",
             "Content-Type": "application/json",
             'X-CSRFToken': csrftoken,
         },
+        mode: 'same-origin',
         body: JSON.stringify(dataObj)
     })
         .then(response => response.json())
