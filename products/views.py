@@ -202,8 +202,9 @@ def search(request, query):
     return JsonResponse({'products': filtered_products})
 
 
-@ensure_csrf_cookie
+
 def filter_home(request):
+    print(request.META)
     data = json.load(request)
     categories = data["categories"]
     price_type = data["price"]
