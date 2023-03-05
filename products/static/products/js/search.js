@@ -1,5 +1,5 @@
 import { replaceProducts, fetchData, getData } from './functions.js';
-
+window.addEventListener('DOMContentLoaded', () => {
 const searchForm = document.getElementById("search-form");
 searchForm.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -15,3 +15,4 @@ searchForm.addEventListener("submit", function (e) {
         inputElement.setCustomValidity("Veuillez taper une recherche");
     }
 })
+});

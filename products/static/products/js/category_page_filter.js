@@ -1,5 +1,5 @@
 import { fetchData, replaceProducts } from  "./functions.js"
-  
+window.addEventListener('DOMContentLoaded', () => {  
 const form = document.getElementById("filter-form")
 form.addEventListener("submit", event => {
     event.preventDefault();
@@ -18,3 +18,4 @@ form.addEventListener("submit", event => {
         replaceProducts(data);
     });
 })
+});

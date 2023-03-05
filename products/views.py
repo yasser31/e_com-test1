@@ -204,7 +204,6 @@ def search(request, query):
 
 
 def filter_home(request):
-    print(request.META)
     data = json.load(request)
     categories = data["categories"]
     price_type = data["price"]
