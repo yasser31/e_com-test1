@@ -70,7 +70,7 @@ export function fetchData(url, dataObj) {
     return fetch(url, {
         method: "POST",
         headers: {
-            "origin": "https://www.nchoof.com",
+            "origin": "www.nchoof.com",
             "Content-Type": "application/json",
             'X-CSRFToken': csrftoken,
         },
