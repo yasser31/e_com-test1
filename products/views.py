@@ -12,7 +12,7 @@ from django.db.models import Q
 from django.db.models import F
 from django.http import JsonResponse
 from .functions import products_to_dict
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
 
 
@@ -203,7 +203,7 @@ def search(request, query):
     return JsonResponse({'products': filtered_products})
 
 
-@csrf_exempt
+@csrf_protect
 def filter_home(request):
     data = json.load(request)
     categories = data["categories"]
