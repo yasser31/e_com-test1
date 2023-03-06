@@ -74,7 +74,6 @@ export function fetchData(url, dataObj) {
             "Content-Type": "application/json",
             'X-CSRFToken': csrftoken,
         },
-        mode: 'same-origin',
         body: JSON.stringify(dataObj)
     })
         .then(response => response.json())
