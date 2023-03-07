@@ -14,7 +14,7 @@ from django.http import JsonResponse
 from .functions import products_to_dict
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
-
+import sentry_sdk
 
 
 def home(request):
@@ -78,8 +78,11 @@ def create_product(request):
                 request, "Votre produit a été crée avec succès veuillez en ajouter un autre")
             return redirect('products:create_product')
     else:
-        form = ProductForm()
-        image_formset = ImageFormSet(prefix="images")
+        try:
+            form = ProductForm()
+            image_formset = ImageFormSet(prefix="images")
+        except Exception as e:
+            sentry_sdk.capture_exception(e)
     messages.warning(request, "Veuillez choisir une seule image principale")
     return render(request, 'products/create_product.html', {'form': form, 'image_form': image_formset})
 
