@@ -14,7 +14,7 @@ from django.http import JsonResponse
 from .functions import products_to_dict
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
-
+import sentry_sdk
 
 
 def home(request):
@@ -58,31 +58,33 @@ def view_product(request, product_id):
 @login_required
 @transaction.atomic
 def create_product(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST)
-        image_formset = ImageFormSet(
-            request.POST, request.FILES, prefix="images")
-        if form.is_valid() and image_formset.is_valid():
-            product = form.save(commit=False)
-            images = image_formset.save(commit=False)
-            try:
-                product = Product.objects.get(
-                    name=product.name, user=request.user)
-            except Product.DoesNotExist:
-                product.user = request.user
-                product.save()
-                for image in images:
-                    image.product = product
-                    image.save()
-            messages.success(
-                request, "Votre produit a été crée avec succès veuillez en ajouter un autre")
-            return redirect('products:create_product')
-    else:
-        form = ProductForm()
-        
-    messages.warning(request, "Veuillez choisir une seule image principale")
-    return render(request, 'products/create_product.html', {'form': form})
-
+    try:
+        if request.method == 'POST':
+            form = ProductForm(request.POST)
+            image_formset = ImageFormSet(
+                request.POST, request.FILES, prefix="images")
+            if form.is_valid() and image_formset.is_valid():
+                product = form.save(commit=False)
+                images = image_formset.save(commit=False)
+                try:
+                    product = Product.objects.get(
+                        name=product.name, user=request.user)
+                except Product.DoesNotExist:
+                    product.user = request.user
+                    product.save()
+                    for image in images:
+                        image.product = product
+                        image.save()
+                messages.success(
+                    request, "Votre produit a été crée avec succès veuillez en ajouter un autre")
+                return redirect('products:create_product')
+        else:
+            form = ProductForm()
+            image_formset = ImageFormSet(prefix="images")
+        messages.warning(request, "Veuillez choisir une seule image principale")
+    except Exception as e:
+        sentry_sdk.capture_exception(e)
+    return render(request, 'products/create_product.html', {'form': form, 'image_form': image_formset})
 
 @login_required
 @transaction.atomic
