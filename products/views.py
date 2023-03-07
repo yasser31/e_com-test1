@@ -203,6 +203,7 @@ def search(request, query):
     return JsonResponse({'products': filtered_products})
 
 
+csrf_exempt
 def filter_home(request):
     data = json.load(request)
     categories = data["categories"]
