@@ -9,7 +9,7 @@ form.addEventListener("submit", event => {
     const category = document.getElementById("category-h3").textContent.trim();
     categories.push(category);
     let dataToSend = { price: selectedPrice, categories: categories }
-    let url = "www.nchoof.com/products/filter_home"
+    let url = "https://www.nchoof.com/products/filter_home"
     // Make a POST request to the backend view
     fetchData(url, dataToSend).then(data => {
         // Handle the response data and update the product display
