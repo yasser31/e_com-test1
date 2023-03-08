@@ -1085,7 +1085,7 @@ a:hover {
 }
 
 #logo {
-    width: 25%;
+    width: 50%;
 }
 
 #logo-title {
@@ -1096,8 +1096,9 @@ a:hover {
 }
 
 #logo-slogan {
-    margin: 0px;
-    margin-left: -3px;
+    position: absolute;
+    top: 60px;
+    left: 30px;
     padding: 0px;
     color: black;
 }
@@ -1105,6 +1106,7 @@ a:hover {
 #hand-icon {
     position: absolute;
     margin-left: 5px;
+    top: -1px;
 }
 
 #registration-h1,
